@@ -1016,7 +1016,8 @@ footer{
         &>ul{
             display: flex;
             flex-direction: column;
-            gap: 2vw;
+            gap: 2.7vw;
+            font-family: serif;
             margin-left: 5vw;
             color: white;
         }
