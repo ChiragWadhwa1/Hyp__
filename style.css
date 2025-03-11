@@ -534,11 +534,13 @@ footer{
         color: white;
     width: 70vw;
     line-height: 2.5vw;
+    font-family: serif;
     word-spacing: 0.5vw;
 
     &>a{
-        font-size: 3vw;
-        font-weight: 700;
+        font-size: 1vw;
+        font-weight: 600;
+        color: rgb(198,168,89);
     }
     }
 }
