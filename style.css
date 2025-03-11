@@ -1010,7 +1010,7 @@ footer{
         gap: 5vw;
         background-color: transparent;
         padding: 5vw;
-        margin-bottom: 5vw;
+        margin-bottom: 50vw;
         border-radius: 5vw;
     
         &>ul{
