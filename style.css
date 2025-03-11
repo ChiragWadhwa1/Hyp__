@@ -1082,12 +1082,12 @@ footer{
         gap: 3vh;
 
         &>p{
-        font-size: 2.1vh;
-        line-height: 2vh;
+        font-size: 2vh;
+        line-height: 8vw;
         word-spacing: 1vh;
 
         &>a{
-            font-size: 2.2vh;
+            font-size: 2vh;
         }
         }
     }
