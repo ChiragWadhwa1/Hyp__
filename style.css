@@ -476,7 +476,55 @@ nav{
 }
 }
 
+#partner{
+    margin-top: 7vw;
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5vw;
 
+    &>h1{
+        font-family: serif;
+        color: rgb(198,168,89);
+    }
+    
+}
+
+#partnergrid{
+    display: grid;
+    grid-template-columns: repeat(4, 15vw);
+    gap: 5vw;
+
+
+    &>div{
+        /* background-color: red; */
+        height: 15vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &>img{
+            width: 13vw;
+        }
+
+        &>b{
+            color: rgb(198,168,89);
+            font-size: 2vw;
+            text-align: center;
+            font-family: serif;
+        }
+
+        &>h2{
+            color: white;
+            font-family: serif;
+        }
+    }
+
+}
 
 
 footer{
@@ -1031,6 +1079,60 @@ footer{
         .adv4{
     margin-bottom: 10vw;
 }
+
+
+      #partner{
+        margin-top: 7vh;
+        width: 100vw;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 7vh;
+    
+        &>h1{
+            font-size: 4.5vh;
+            font-family: serif;
+            color: rgb(198,168,89);
+        }
+        
+    }
+    
+    #partnergrid{
+        display: grid;
+        grid-template-columns: repeat(2, 19vh);
+        gap: 3vh;
+    
+    
+        &>div{
+            /* background-color: red; */
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+    
+            &>img{
+                width: 18vh;
+            }
+    
+            &>b{
+                color: rgb(198,168,89);
+                font-size: 3vh;
+                text-align: center;
+                font-family: serif;
+            }
+    
+            &>h2{
+                font-size: 2vh;
+                color: white;
+                font-family: serif;
+            }
+        }
+    
+    }
+  
     
 
 
