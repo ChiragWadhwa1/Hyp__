@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollTrigger: {
                 trigger: "#scroll-container",
                 start: "top top",
-                end: "bottom bottom", 
+                end: "bottom bottom",
                 scrub: 1,
             }
         });
@@ -178,4 +178,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.15 });
     sections.forEach(section => observer.observe(section));
+
+    // --- Form Submission Logic ---
+    const form = document.getElementById('contact-form');
+    const result = document.getElementById('form-result');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const object = {};
+        formData.forEach((value, key) => {
+            object[key] = value;
+        });
+        const json = JSON.stringify(object);
+        
+        result.innerHTML = "Submitting...";
+        result.className = "mt-4 text-sm text-gray-400";
+
+        fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let jsonResponse = await response.json();
+                if (response.status == 200) {
+                    result.innerHTML = jsonResponse.message || "Form submitted successfully!";
+                    result.className = "mt-4 text-sm text-green-500";
+                } else {
+                    console.log(response);
+                    result.innerHTML = jsonResponse.message || "Something went wrong!";
+                    result.className = "mt-4 text-sm text-red-500";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                result.innerHTML = "Something went wrong!";
+                result.className = "mt-4 text-sm text-red-500";
+            })
+            .then(function() {
+                form.reset();
+                setTimeout(() => {
+                    result.innerHTML = "";
+                }, 5000);
+            });
+    });
 });
+
