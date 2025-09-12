@@ -227,4 +227,3 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 });
-
