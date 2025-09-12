@@ -1,174 +1,405 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hyp! Media</title>
-    <link rel="icon" href="logo2.jpg" width="5vw">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" href="hyp logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body id="body">
-    <div id="hp"> </div>
-    <div id="mainm">
-    <div id="main">
-        <video src="Hyp.mp4" autoplay muted loop id="wall"></video>
-        <header id="header">
-            <i class="fa-solid fa-bars " id="menubar" ></i>
-        
-            <div style="display: flex; align-items: flex-end; "> 
-                <a href="index.html"><img src="logo.png" alt="" id="logo" ></a>
-                <div class="card">
-                  <div class="loader">
-                    <p>helping</p>
-                    <div class="words">
-                      <span class="word">everyone</span>
-                      <span class="word">startups</span>
-                      <span class="word">celebs</span>
-                      <span class="word">podcasts</span>
-                      <span class="word">founders</span>
+<body class="overflow-x-hidden">
+
+    <div id="hero-canvas-container"></div>
+    
+    <div id="scroll-container" class="relative z-10">
+
+        <!-- Header -->
+        <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+            <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+                <a href="#">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">Hyp! Media</h1>
                     </div>
-                  </div>
-                </div>
-                </div>
-            <nav id="nav">
-                <i class="fa-solid fa-xmark" id="cross"></i>
-                <button class="nav_button nav_button1"><a href="#main">Home</a></button>
-                <button class="nav_button nav_button2"><a href="#service">Our services</a></button>
-                <button class="nav_button nav_button3"><a href="#dgt">Digital PR over Traditional</a></button>
-                <button class="nav_button nav_button6"><a href="#partner">Our Partners</a></button>
-                <button class="nav_button nav_button4"><a href="#contactInfo">Contact us</a></button>
-                <button class="nav_button nav_button5"><a href="#about">About us</a></button>
-            
-            </nav>
+                </a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#problem" class="hover:text-accent-blue transition-colors">The Problem</a>
+                    <a href="#solution" class="hover:text-accent-blue transition-colors">Our Solution</a>
+                    <a href="#services" class="hover:text-accent-blue transition-colors">Services</a>
+                    <a href="#roi-engine" class="hover:text-accent-blue transition-colors">ROI Engine</a>
+                </nav>
+                <a href="#contact" class="magnetic-button hidden md:inline-block bg-accent-blue text-black font-bold py-3 px-6 rounded-full hover:scale-105">
+                    Multiply My Revenue
+                </a>
+                <button id="menu-btn" class="md:hidden z-50">
+                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </header>
- 
-        <div id="front">
-            <h1 id="focus">Focus is the new <div>Currency.</div></h1>
-            <!-- <p id="focus"></p> -->
-            <a href="https://wa.link/2dm8b8" target="_blank" id="cbtn"><button id="connectBtn">Connect on Whatsapp <i class="fa-brands fa-whatsapp"></i></button></a>
-            
-        </div>
-   </div>
-   <div class="service" id="service">
-    <h1>Our Services</h1>
-    <div class="Grid">
-        <div class="serviceGrid serviceGrid_3"> <div class="front front_3"><img src="cardbg.png" alt="" class="cardbg"><h1>Startups</h1></div>
-        <div class="back back_3"><div><img src="d2c.jpeg" alt="" class="backimg"><div> <h1>Startups</h1><p>Performance Marketing is like an <a>engine</a> for your brand. You put in fuel (money) and it'll keep running. When you get out of fuel, the car stops. Now, what's the solution for it? <br><br> Click <a>"Read More"</a> to find out.</p></div> <button><a href="Hyp! Media - Brand Edition (1).pdf" target="_blank">Read more</a></button></div></div></div>
-    <div class="serviceGrid serviceGrid_1"> <div class="front front_1"><img src="cardbg.png" alt="" class="cardbg"><h1>Founders</h1></div>
-    <div class="back back_1"><div><img src="founder.jpeg" alt="" class="backimg"><div> <h1>Founders</h1> <p>Without visibility, founders struggle to build <a>credibility</a>, attract <a>investors</a>, and scale their <a>brand</a>, losing opportunities to competitors. <br><br> Click <a>"Read More"</a> to find out.</p></div> <button><a href="Hyp! Media - Founder's Edition.pdf" target="_blank">Read more</a></button></div></div></div>
-    <div class="serviceGrid serviceGrid_2"> <div class="front front_2"><img src="cardbg.png" alt="" class="cardbg"><h1>Content Creators</h1></div>
-    <div class="back back_2"><div><img src="creator.jpg" alt="" class="backimg"><div> <h1>Coming Soon...</h1></div>     
-    <!-- <button>Read more</button> -->
-</div></div></div>
-    <div class="serviceGrid serviceGrid_4"> <div class="front front_4"><img src="cardbg.png" alt="" class="cardbg"><h1>Podcasts</h1></div>
-    <div class="back back_4"><div><img src="podcast.png" alt="" class="backimg"><div> <h1>Coming Soon...</h1></div> 
-    <!-- <button>Read more</button> -->
-</div></div></div>
-   </div>
-    </div>
-
-    <div id="dgt">
-        <!-- <img src="Dgt.jpg" alt="" id="dgtpic"> -->
-        <h1>Digital PR over Traditional PR</h1>
         
-        <div id="dgtintro">
-            <!-- <div id="box"></div> -->
-            <h2>Introduction</h2>
-            <div id="introp">
-             <p>   In today’s fast-paced digital landscape, traditional PR methods like print media, TV spots, and static press releases are no longer enough to keep brands ahead of the curve. Enter Digital PR—a dynamic, data-driven approach that amplifies your brand’s presence across online platforms, social media, and digital publications.
-<br> <br>
-Unlike traditional PR, which relies on slow media cycles and limited reach, Digital PR offers real-time engagement, measurable results, and targeted outreach. It not only builds credibility but also drives traffic, boosts SEO, and connects brands directly with their audience.
-<br><br>
-At Hyp! Media, we specialize in crafting innovative Digital PR strategies that go beyond traditional boundaries, helping startups, founders, and content creators build lasting impact in the digital world.
-</p>
-            <img src="dgtvstdn.webp" alt="">
-   </div>
+        <!-- Mobile Nav -->
+        <div id="mobile-nav" class="fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 text-2xl -translate-x-full transition-transform duration-300">
+             <a href="#problem" class="mobile-link text-white">The Problem</a>
+             <a href="#solution" class="mobile-link text-white">Our Solution</a>
+             <a href="#services" class="mobile-link text-white">Services</a>
+             <a href="#roi-engine" class="mobile-link text-white">ROI Engine</a>
+             <a href="#contact" class="mt-8 bg-accent-blue text-black font-bold py-3 px-8 rounded-full">Multiply My Revenue</a>
+        </div>
+
+
+        <!-- Hero Section -->
+        <section class="h-[180vh] relative">
+            <div class="sticky top-0 h-screen flex flex-col justify-center items-center text-center px-6">
+                <div id="hero-content">
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter">
+                        Stop Blending In. <br class="hidden md:block"/> Start <span class="accent-blue">Taking Over.</span>
+                    </h1>
+                    <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                        Your online presence is more than a profile; it's a revenue engine. We help founders and startups ignite their authority and turn connections into contracts.
+                    </p>
+                    <div class="mt-10">
+                        <a href="#contact" class="magnetic-button inline-block bg-white text-black font-bold py-4 px-8 rounded-full hover:scale-105">
+                           Start The Countdown
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="main-content-wrapper">
+            <!-- Problem Section -->
+            <section id="problem" class="content-section py-24 md:py-32">
+                <div class="container mx-auto px-6">
+                    <div class="text-center max-w-3xl mx-auto section-fade-in">
+                         <h3 class="text-base font-semibold text-blue-400 tracking-wider mb-2">GROUND CONTROL</h3>
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Is Your Signal Lost in The Noise?</h2>
+                        <p class="max-w-3xl mx-auto text-slate-300 text-lg mb-12">Founders are busy building the future. But online, many are invisible, broadcasting on a dead frequency. Your groundbreaking work deserves a megaphone, not a whisper.</p>
+                    </div>
+                    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glow-border p-8 rounded-2xl section-fade-in">
+                            <h4 class="text-xl font-bold text-white mb-2">Revenue Leaks</h4>
+                            <p class="text-slate-400">Your ideal clients are scrolling past you, signing deals with founders who have a stronger, more consistent presence.</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.2s;">
+                            <h4 class="text-xl font-bold text-white mb-2">Wasted Time</h4>
+                            <p class="text-slate-400">You're spending hours trying to figure out what to post, only to be met with silence and lackluster engagement.</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.4s;">
+                            <h4 class="text-xl font-bold text-white mb-2">Weak Network</h4>
+                            <p class="text-slate-400">You're connected to everyone but influential with no one. Your network isn't a safety net; it's a list of strangers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution Section -->
+            <section id="solution" class="content-section py-24 md:py-32">
+                 <div class="container mx-auto px-6">
+                    <div class="text-center max-w-3xl mx-auto section-fade-in">
+                        <h3 class="text-base font-semibold text-accent-blue tracking-wider mb-2">THE IGNITION SEQUENCE</h3>
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-12">How We Launch Your Authority.</h2>
+                    </div>
+                    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                        <div class="glow-border p-8 rounded-2xl section-fade-in">
+                            <div class="text-5xl font-black accent-blue">01</div>
+                            <h3 class="mt-4 text-2xl font-bold">Blueprint & Strategy</h3>
+                            <p class="mt-4 text-gray-400">We don't guess, we architect. We dive deep into your brand, your voice, and your goals to build a content strategy that positions you as the undeniable expert in your field.</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in border-accent-blue shadow-lg shadow-blue-500/20" style="transition-delay: 0.2s;">
+                            <div class="text-5xl font-black accent-blue">02</div>
+                            <h3 class="mt-4 text-2xl font-bold">Content That Converts</h3>
+                            <p class="mt-4 text-gray-400">We craft compelling content—from sharp insights to powerful stories—that doesn't just get likes, it starts conversations and generates qualified inbound leads.</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.4s;">
+                            <div class="text-5xl font-black accent-blue">03</div>
+                            <h3 class="mt-4 text-2xl font-bold">Multiply & Monetize</h3>
+                            <p class="mt-4 text-gray-400">We manage your presence, engage with your network, and identify opportunities, transforming your digital presence from a chore into a predictable revenue stream.</p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+
+             <!-- Services Section -->
+            <section id="services" class="content-section py-24 md:py-32">
+                 <div class="container mx-auto px-6">
+                    <div class="text-center max-w-3xl mx-auto section-fade-in">
+                        <h2 class="text-3xl md:text-5xl font-bold">Our <span class="accent-blue">Digital PR Services</span></h2>
+                         <p class="mt-6 text-lg text-gray-400">Tailored solutions designed for modern brands and their leaders. We specialize in building authority where it matters most.</p>
+                    </div>
+                    <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
+                            <div class="text-3xl accent-blue mt-1">🚀</div>
+                            <div>
+                                <h3 class="text-2xl font-bold">For Startups & Brands</h3>
+                                <p class="mt-3 text-gray-400">Build credibility and attract investors with strategic media placements, product launches, and powerful brand storytelling.</p>
+                                 <button data-modal="brandModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">View Startup Blueprint &rarr;</button>
+                            </div>
+                        </div>
+                         <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
+                            <div class="text-3xl accent-blue mt-1">👤</div>
+                            <div>
+                                <h3 class="text-2xl font-bold">For Founders & Leaders</h3>
+                                <p class="mt-3 text-gray-400">Establish your personal brand as a thought leader through podcast features, bylined articles, and expert positioning.</p>
+                                <button data-modal="founderModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">View Founder Blueprint &rarr;</button>
+                            </div>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
+                            <div class="text-3xl accent-blue mt-1">💡</div>
+                            <div>
+                                <h3 class="text-2xl font-bold">For AI Companies</h3>
+                                <p class="mt-3 text-gray-400">Connect with the most engaged tech audiences, from early adopters to industry leaders, driving awareness and trust in competitive AI markets.</p>
+                                <button data-modal="aiModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">View AI Blueprint &rarr;</button>
+                            </div>
+                        </div>
+                         <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
+                            <div class="text-3xl accent-blue mt-1">🔗</div>
+                            <div>
+                                <h3 class="text-2xl font-bold">LinkedIn Management</h3>
+                                <p class="mt-3 text-gray-400">Turn your LinkedIn profile into a revenue engine. We handle content, growth, and lead generation, so you can focus on closing deals.</p>
+                                <button data-modal="linkedinModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">See the Data &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+
+            <!-- ROI Engine Section -->
+            <section id="roi-engine" class="content-section py-24 md:py-32">
+                 <div class="container mx-auto px-6">
+                     <div class="text-center max-w-3xl mx-auto section-fade-in">
+                        <h3 class="text-base font-semibold text-accent-blue tracking-wider mb-2">THE ROI ENGINE</h3>
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">From Authority to Revenue.</h2>
+                         <p class="max-w-3xl mx-auto text-slate-300 text-lg mb-12">This isn't just about presence; it's about profit. Our process is a systematic engine designed to turn your influence into a predictable pipeline of high-value opportunities and measurable financial growth.</p>
+                    </div>
+                    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                         <div class="glow-border p-8 rounded-2xl section-fade-in">
+                            <h4 class="text-xl font-bold text-white mb-2">1. Authority &rarr; Higher Prices</h4>
+                            <p class="text-slate-400">By establishing you as the go-to expert, we build immense perceived value. This allows you to command premium pricing, increasing your average deal size and profitability.</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.15s;">
+                            <h4 class="text-xl font-bold text-white mb-2">2. Amplification &rarr; Lower Costs</h4>
+                            <p class="text-slate-400">Strategic amplification puts you in front of ideal customers organically. This reduces reliance on expensive ads, drastically lowering your Customer Acquisition Cost (CAC).</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.3s;">
+                            <h4 class="text-xl font-bold text-white mb-2">3. Inbound Flow &rarr; Faster Sales</h4>
+                            <p class="text-slate-400">Authority builds trust before the first call. Inbound leads are pre-sold on your expertise, leading to higher conversion rates and shorter sales cycles. You spend less time convincing and more time closing.</p>
+                        </div>
+                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.45s;">
+                            <h4 class="text-xl font-bold text-white mb-2">4. Monetization &rarr; Predictable Growth</h4>
+                            <p class="text-slate-400">The result is a scalable pipeline of opportunities. This isn't just about one-off leads; it's about building a sustainable engine for long-term revenue growth and higher customer lifetime value (LTV).</p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
             
+            <!-- CTA Section -->
+            <section id="contact" class="content-section py-24 md:py-32">
+                <div class="container mx-auto px-6 text-center section-fade-in">
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter">Ready For Your <span class="accent-blue">Liftoff?</span></h2>
+                    <p class="mt-6 max-w-xl mx-auto text-lg text-gray-300">Stop being the best-kept secret in your industry. Let's schedule a 15-minute call to map out your revenue strategy. No fluff, no hard sell, just a clear flight plan.</p>
+                    <div class="mt-10">
+                        <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+                            <input type="email" placeholder="Enter your email" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                            <button type="submit" class="w-full md:w-auto bg-accent-blue text-black font-semibold py-3 px-8 rounded-lg hover:bg-blue-500 transition-all duration-300 flex-shrink-0">
+                               Book My Strategy Call
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Footer -->
+            <footer class="content-section border-t border-gray-800">
+                <div class="container mx-auto px-6 py-12">
+                    <div class="flex flex-col md:flex-row justify-between items-center text-center">
+                        <p class="text-gray-400">&copy; 2024 Hyp! Media. All Rights Reserved.</p>
+                        <div class="flex items-center space-x-6 mt-4 md:mt-0">
+                             <a href="https://www.linkedin.com/in/hyp-media" target="_blank" class="text-gray-400 hover:text-accent-blue transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.25 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
+                             </a>
+                             <a href="mailto:hello@hypmedia.co.in" class="text-gray-400 hover:text-accent-blue transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
+                             </a>
+                             <a href="https://wa.me/919485509850" target="_blank" class="text-gray-400 hover:text-accent-blue transition-colors">
+                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.25 8.25 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42 1.56 1.56 2.42 3.62 2.42 5.82- .01 4.54-3.71 8.24-8.24 8.24zm4.52-6.13c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.88 2.4 1 2.56.12.17 1.75 2.67 4.24 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.05-.12-.19-.19-.43-.31z"></path></svg>
+                             </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <div id="adv">
-            <h2>Advantages of pursuing Digital PR over Traditional means</h2>
-            <div id="advpt">
-                <img src="dgtvstdn.webp" alt="">
-                <div id="advblk">
-                <div class="adv adv1">  
-                    <!-- <img src="genz.jpg" alt=""> -->
-                    <h3>1. Success Starts with Gen Z by Your Side.</h3>
-                    <ul>
-                    <li>Massive Purchasing power</li>
-                    <li>Future-Proofing Your Brand </li>
-                    <li>Loyalty to Authentic Brands</li>
-                </ul>
+    </div>
+
+    <!-- Modals -->
+    <div id="brandModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
+        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
+            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
+            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
+                <h2 class="text-4xl font-bold mb-2">Startup & Brand Blueprint</h2>
+                <p class="text-lg text-blue-400 mb-8">Architecting your brand's authority and market dominance.</p>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">What We Do:</h3>
+                    <p class="text-gray-300 mb-6">We build and execute a comprehensive Digital PR strategy that inserts your brand into the conversations that matter. We don't just get you seen; we get you recognized as an industry leader by securing high-authority media placements, podcast features, and niche community spotlights.</p>
+                </div>
+                
+                <div class="glow-border p-6 rounded-xl bg-gray-900/50">
+                    <h3 class="text-2xl font-bold mb-4 accent-blue">How It Translates to Profit:</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-white">Short-Term ROI (The First 90 Days)</h4>
+                            <ul class="list-disc list-inside text-gray-400 mt-2">
+                                <li>Increased Lead Velocity for launches.</li>
+                                <li>Accelerated Investor Interest.</li>
+                                <li>Higher Website Traffic & Conversions.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Long-Term ROI (The bigger picture)</h4>
+                            <ul class="list-disc list-inside text-gray-400 mt-2">
+                                <li>Increased Brand Equity (allowing premium pricing).</li>
+                                <li>Reduced Customer Acquisition Costs.</li>
+                                <li>Stronger Competitive Moat.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-8 border-t border-gray-800">
+                     <blockquote class="text-center italic text-gray-300 text-lg">
+                        <p>"Working with Hyp! Media was a game-changer. They secured features we never thought possible, which directly led to a successful funding round."</p>
+                        <cite class="block mt-4 not-italic font-bold text-accent-blue">- Founder of a Tech Startup</cite>
+                     </blockquote>
+                </div>
             </div>
-                <div class="adv adv2">
-                    <!-- <img src="measurable.jpg" alt=""> -->
-                    <h3>2. Measurable Results & Data-Driven Insights</h3>
-                    <ul>
-                    <li>Simplified KPI Tracking for Clearer Insights.</li>
-                    <li>Strategy Optimization Based on Reach.</li>
-                    <li>Enhanced Audience Targeting.</li>
-                </ul>
+        </div>
+    </div>
+
+    <div id="founderModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
+        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
+            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
+            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
+                <h2 class="text-4xl font-bold mb-2">Founder & Leader Blueprint</h2>
+                <p class="text-lg text-blue-400 mb-8">Transforming your personal expertise into a revenue-generating asset.</p>
+                
+                 <div>
+                    <h3 class="text-2xl font-bold mb-4">What We Do:</h3>
+                    <p class="text-gray-300 mb-6">We extract your unique insights and transform them into a powerful personal brand. Through exclusive podcast features, bylined articles in major publications, and a dominant social media presence, we make you the person everyone in your industry wants to know.</p>
                 </div>
-                <div class="adv adv3">
-                    <!-- <img src="engaging.webp" alt=""> -->
-                    <h3>3. Engaging, Shareable Content </h3>
-                    <ul>
-                        <li>Caters to Gen Z’s Consumption Habits.</li>
-                        <li>Encourages Social Sharing & Virality.</li>
-                        <li>Captures Audience Attention Quickly.</li>
-                    </ul>
+                
+                <div class="glow-border p-6 rounded-xl bg-gray-900/50">
+                    <h3 class="text-2xl font-bold mb-4 accent-blue">How It Translates to Profit:</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-white">Short-Term ROI (The First 90 Days)</h4>
+                            <ul class="list-disc list-inside text-gray-400 mt-2">
+                                <li>Pipeline of High-Ticket Consulting Gigs.</li>
+                                <li>Paid Speaking Opportunities.</li>
+                                <li>Inbound leads who want *you*.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Long-Term ROI (The bigger picture)</h4>
+                            <ul class="list-disc list-inside text-gray-400 mt-2">
+                                <li>Access to an Elite Professional Network.</li>
+                                <li>Ability to Attract A-Player Talent.</li>
+                                <li>Advisory & Board Role Opportunities.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="adv adv4">
-                    <!-- <img src="multi channel.png" alt=""> -->
-                    <h3>4. Amplifies Multi-Channel Presence</h3>
-                    <ul>
-                        <li>Consistent Brand Messaging Across Platforms</li>
-                        <li>Maximizes Audience Reach</li>
-                        <li>Brand loyalty by customers</li>
-                    </ul>
+
+                <div class="mt-10 pt-8 border-t border-gray-800 text-center">
+                    <h3 class="text-2xl font-bold accent-blue">Focus is the new currency.</h3>
+                    <p class="text-gray-300 mt-2">Let us handle your visibility so you can focus on what you do best: building the future.</p>
                 </div>
             </div>
-               </div>
+        </div>
+    </div>
+    
+    <div id="aiModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
+        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
+            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
+            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
+                <h2 class="text-4xl font-bold mb-2">AI Company Blueprint</h2>
+                <p class="text-lg text-blue-400 mb-8">Gain visibility and credibility in the most competitive tech landscape.</p>
+                
+                 <div class="glow-border p-6 rounded-xl bg-gray-900/50 mb-8">
+                    <h4 class="text-xl font-bold mb-4 text-center accent-blue">Why Target AI Audiences Now?</h4>
+                     <p class="text-gray-300 text-center">The AI space is moving at light speed. The golden window to establish authority is *now*. We connect you with the most filtered, high-intent audience online: early adopters, tech founders, and VCs actively looking for the next big thing. This isn't just marketing; it's a strategic land grab for market leadership.</p>
+                </div>
+
+                <h3 class="text-2xl font-bold mt-6 mb-3 text-center">AI Growth Packages</h3>
+                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                    <div class="glow-border p-6 rounded-xl text-center">
+                         <h4 class="text-xl font-bold mb-2">Starter</h4>
+                         <p class="text-3xl font-bold accent-blue">2.5M+</p>
+                         <p class="text-gray-400">Follower Reach</p>
+                         <p class="mt-4 text-sm text-gray-300">Targeted features on 5 high-engagement AI pages to establish presence and spark interest.</p>
+                    </div>
+                     <div class="glow-border p-6 rounded-xl text-center border-accent-blue shadow-lg shadow-blue-500/20">
+                         <h4 class="text-xl font-bold mb-2">Standard</h4>
+                         <p class="text-3xl font-bold accent-blue">5.2M+</p>
+                         <p class="text-gray-400">Follower Reach</p>
+                         <p class="mt-4 text-sm text-gray-300">Strategic placements across 6 leading AI communities to engage a professional audience.</p>
+                    </div>
+                     <div class="glow-border p-6 rounded-xl text-center">
+                         <h4 class="text-xl font-bold mb-2">Elite</h4>
+                         <p class="text-3xl font-bold accent-blue">8M+</p>
+                         <p class="text-gray-400">Follower Reach</p>
+                         <p class="mt-4 text-sm text-gray-300">Premium exposure on 11 top-tier AI platforms to command attention and authority.</p>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-8 border-t border-gray-800">
+                     <h3 class="text-2xl font-bold text-center mb-4">Proven Track Record &rarr; Your Future Profit</h3>
+                     <div class="grid sm:grid-cols-2 gap-4 text-center">
+                         <p><strong class="accent-blue">500,000+ views</strong> for GammaAI translated to massive user acquisition.</p>
+                         <p><strong class="accent-blue">3,000+ sign-ups</strong> in 24 hours for a new AI tool, fast-tracking their growth.</p>
+                         <p><strong class="accent-blue">Thousands of new customers</strong> for an AI video editor after our campaign.</p>
+                         <p><strong class="accent-blue">1.5M+ views</strong> for emerging AI tools, creating market momentum.</p>
+                     </div>
+                </div>
+            </div>
         </div>
     </div>
 
-        <div id="partner">
-        <h1>Our Trusted Partners</h1>
-        <div id="partnergrid">
-            <div><img src="Logo/20250320_125134.png" alt=""><h2>Marketing Stories</h2></div>
-            <div><img src="Logo/20250320_125028.png" alt=""><h2>Karo Startup</h2></div>
-            <div><img src="Logo/20250320_125200.png" alt=""><h2>Intend-to <br>Marketing</h2></div>
-            <div><img src="Logo/20250324_022603.png" alt=""><h2>Inc42 Media</h2></div>
-            <div><img src="Logo/20250324_022805.png" alt=""><h2>Hindustan Times</h2></div>
-            <div><img src="Logo/20250324_164657.png" alt=""><h2>Startup Pedia</h2></div>
-            <div><img src="Logo/20250324_165139.png" alt=""><h2>Startup Talky</h2></div>
-            <div><b>100+ such partners</b></div>
+    <div id="linkedinModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
+        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
+            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
+            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
+                <h2 class="text-4xl font-bold mb-2">The LinkedIn Data</h2>
+                <p class="text-lg text-blue-400 mb-8">Why your silence is costing you more than you think.</p>
+                
+                <div class="space-y-8">
+                    <div class="glow-border p-8 rounded-xl bg-gray-900/50">
+                        <span class="text-6xl font-black accent-blue">80%</span>
+                        <h4 class="mt-2 text-2xl font-bold text-white mb-2">of B2B Leads are Sourced on LinkedIn</h4>
+                        <p class="text-slate-300 text-lg">By being inactive, you're invisible to the vast majority of your target market. Your next big contract is scrolling right past you.</p>
+                     </div>
+                     <div class="glow-border p-8 rounded-xl bg-gray-900/50">
+                        <span class="text-6xl font-black accent-blue">92%</span>
+                        <h4 class="mt-2 text-2xl font-bold text-white mb-2">of B2B Buyers Engage with Industry Thought Leaders</h4>
+                        <p class="text-slate-300 text-lg">Trust isn't a feature; it's the entire product. An active, authoritative presence makes you the default choice before a sales call is even booked.</p>
+                     </div>
+                     <div class="glow-border p-8 rounded-xl bg-gray-900/50">
+                        <span class="text-6xl font-black accent-blue">61M</span>
+                        <h4 class="mt-2 text-2xl font-bold text-white mb-2">Senior-Level Influencers are on LinkedIn</h4>
+                        <p class="text-slate-300 text-lg">The decision-makers, the investors, the enterprise clients—they are all on LinkedIn. If your voice isn't in the mix, you don't exist in their world.</p>
+                     </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="about" id="about">
-        <h1>About us</h1>
-        <div id="abtpara">
-             <p id="abtpara1"><a href="#main">Hyp! Media</a>, founded in February 2024, is a PR agency, initially designed for podcasters, helping them handle the distribution of short videos of their podcast throughout social media. We have evolved as a <a>new age PR agency</a> helping startups, founders and aspiring celebrities with their <a>social</a> presence within the right audience. We are happy to announce that we are one of the fastest players in our industry of Digital PR. </p>
-            <h1 id="vsn">Our Vision</h1>
-            <p id="abtpara2">At Hyp! Media, we envision becoming <a>the ultimate Digital PR powerhouse</a>, redefining how startups, founders, and content creators establish their presence in the <a>digital world</a>. We believe that attention is the new <a>currency</a>, and through strategic storytelling, media placements, and social amplification, we help brands gain the visibility and credibility they deserve. Our goal is to bridge the gap between innovation and influence, ensuring that every brand we work with not only reaches the right audience but also leaves a <a>lasting impact in their industry.</a></p>
-        </div>
-    </div>
 
-
-    <footer>
-        <div>
-       <h3>Contact information</h3>
-       <div id="contactInfo">
-        <div><i class="fa-brands fa-whatsapp" style="font-weight: 700;"></i><h6><a href="https://wa.link/2dm8b8" target="_blank">Message on Whatsapp</a></h6></div>
-        <!-- <div><i class="fa-solid fa-phone"></i><h6>9485509850 (10:00 am to 6:00pm)</h6></div> -->
-        <div><i class="fa-solid fa-envelope"></i><h6><a href="mailto:hello@hypmedia.co.in">Email Address</a></h6></div>
-        <div><i class="fa-solid fa-envelope"></i><h6><a href="mailto:chiragwadhwa37@gmail.com">Founder's Email</a></h6></div>
-       </div>
-       <input type="hidden" name="access_key" value="fc7c6d8d-c8e1-45ea-a4d1-cbaea34adbab">
-    </div>
-    </footer>
-   <script src="script.js"></script>
-   </div>
+    <script src="script.js" defer></script>
 </body>
 </html>
+
