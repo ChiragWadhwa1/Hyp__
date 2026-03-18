@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyp! Media | Viral Shorts</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration for custom animations if needed -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Blob Animations */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob { 
+            animation: blob 7s infinite alternate ease-in-out; 
+        }
+        .animation-delay-2000 { 
+            animation-delay: 2s; 
+        }
+        .animation-delay-4000 { 
+            animation-delay: 4s; 
+        }
+
+        /* Floating Elements Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float { 
+            animation: float 6s ease-in-out infinite; 
+        }
+        .animate-float-delayed { 
+            animation: float 6s ease-in-out 3s infinite; 
+        }
+        .animate-float-slow { 
+            animation: float 8s ease-in-out 1s infinite; 
+        }
+
+        /* Hide scrollbar for slider */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#0a0a0a] text-white selection:bg-blue-500/30 selection:text-blue-100">
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="https://www.hypmedia.co.in" class="flex items-center gap-2 font-bold text-2xl tracking-tight hover:opacity-80 transition-opacity">
+                <div class="bg-gradient-to-br from-blue-500 to-cyan-400 text-black p-1.5 rounded-lg shadow-lg shadow-blue-500/20">
+                    <i data-lucide="play" class="w-6 h-6 stroke-[2.5px] fill-black"></i>
+                </div>
+                <span>Hyp!<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"> Media</span></span>
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+                <a href="#work" class="hover:text-cyan-400 transition-colors">Our Work</a>
+                <a href="#problem" class="hover:text-cyan-400 transition-colors">The Problem</a>
+                <a href="#solution" class="hover:text-cyan-400 transition-colors">How It Works</a>
+                <a href="#why-us" class="hover:text-cyan-400 transition-colors">Why Us</a>
+                <a href="#contact" class="bg-white text-black px-5 py-2.5 rounded-full hover:bg-blue-50 transition-all flex items-center gap-2 font-semibold">
+                    Get Strategy <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-[#0a0a0a]">
+            <!-- Animated Background Layer -->
+            <div class="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+                
+                <!-- Tech Grid pattern with radial fade out -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+                
+                <!-- Floating Media Icons -->
+                <div class="absolute top-[20%] left-[10%] md:left-[15%] opacity-20 animate-float">
+                    <i data-lucide="play-circle" class="w-20 h-20 md:w-24 md:h-24 text-blue-500"></i>
+                </div>
+                <div class="absolute top-[60%] left-[5%] md:left-[10%] opacity-10 animate-float-slow">
+                    <i data-lucide="scissors" class="w-12 h-12 md:w-16 md:h-16 text-cyan-400"></i>
+                </div>
+                <div class="absolute top-[25%] right-[10%] md:right-[15%] opacity-20 animate-float-delayed">
+                    <!-- Floating frame shape -->
+                    <div class="w-16 h-24 md:w-20 md:h-32 border-4 border-cyan-500 rounded-xl relative">
+                        <div class="absolute top-1 bottom-1 left-1 right-1 border-2 border-dashed border-blue-400 rounded-lg"></div>
+                    </div>
+                </div>
+                <div class="absolute top-[70%] right-[15%] md:right-[20%] opacity-10 animate-float">
+                    <i data-lucide="clapperboard" class="w-16 h-16 md:w-20 md:h-20 text-blue-400"></i>
+                </div>
+                
+                <!-- Glowing Animated Blobs -->
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+                <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+                <div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-400/15 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+                
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-8 max-w-4xl mx-auto leading-tight">
+                    Turn Your Existing Content Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Viral Shorts</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-neutral-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Most creators are leaving millions of views on the table by not leveraging Shorts. We help YouTubers transform their long-form content into high-performing short-form videos that drive massive channel growth.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-full font-bold text-lg hover:from-blue-400 hover:to-cyan-400 hover:shadow-lg hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-2">
+                        Get a Free Shorts Strategy <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#work" class="w-full sm:w-auto px-8 py-4 bg-neutral-900 text-white rounded-full font-semibold text-lg border border-neutral-800 hover:bg-neutral-800 hover:border-neutral-700 transition-all flex items-center justify-center gap-2">
+                        View Sample Work
+                    </a>
+                </div>
+                
+                <div class="mt-16 pt-10 border-t border-neutral-900 flex flex-col items-center">
+                    <p class="text-sm font-medium text-neutral-500 mb-6 uppercase tracking-wider">Trusted by top creators in</p>
+                    <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale">
+                        <div class="flex items-center gap-2 font-bold text-xl"><i data-lucide="briefcase"></i> Business</div>
+                        <div class="flex items-center gap-2 font-bold text-xl"><i data-lucide="bar-chart-3"></i> Finance</div>
+                        <div class="flex items-center gap-2 font-bold text-xl"><i data-lucide="book-open"></i> Education</div>
+                        <div class="flex items-center gap-2 font-bold text-xl"><i data-lucide="mic"></i> Podcasts</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SAMPLE VIDEOS / WORK SECTION -->
+        <section id="work" class="py-24 bg-neutral-950 border-t border-neutral-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4 text-white">Sample Work</h2>
+                    <p class="text-xl text-neutral-400">High-retention Shorts engineered for the algorithm.</p>
+                </div>
+                
+                <!-- Mobile Slider / Desktop Grid -->
+                <div class="flex overflow-x-auto md:grid md:grid-cols-4 gap-6 pb-8 md:pb-0 snap-x snap-mandatory hide-scrollbar">
+                    
+                    <!-- Video Container 1 -->
+                    <div class="video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center bg-neutral-900 rounded-2xl overflow-hidden group cursor-pointer border border-neutral-800 hover:border-blue-500/50 transition-all shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center pointer-events-none">
+                            <video src="1.mp4" class="w-full h-full object-cover" loop playsinline></video>
+                        </div>
+                        <div class="play-overlay absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300">
+                            <div class="w-14 h-14 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-colors border border-white/20 shadow-xl">
+                                <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 z-20 pointer-events-none">
+                            <div class="flex items-center justify-end text-white font-medium text-sm">
+                                <span class="text-xs text-neutral-300 bg-black/50 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">Social Media</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Container 2 -->
+                    <div class="video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center bg-neutral-900 rounded-2xl overflow-hidden group cursor-pointer border border-neutral-800 hover:border-blue-500/50 transition-all shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center pointer-events-none">
+                            <video src="2.mp4" class="w-full h-full object-cover" loop playsinline></video>
+                        </div>
+                        <div class="play-overlay absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300">
+                            <div class="w-14 h-14 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-colors border border-white/20 shadow-xl">
+                                <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 z-20 pointer-events-none">
+                            <div class="flex items-center justify-end text-white font-medium text-sm">
+                                <span class="text-xs text-neutral-300 bg-black/50 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">Podcast</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Container 3 -->
+                    <div class="video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center bg-neutral-900 rounded-2xl overflow-hidden group cursor-pointer border border-neutral-800 hover:border-blue-500/50 transition-all shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center pointer-events-none">
+                            <video src="3.mp4" class="w-full h-full object-cover" loop playsinline></video>
+                        </div>
+                        <div class="play-overlay absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300">
+                            <div class="w-14 h-14 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-colors border border-white/20 shadow-xl">
+                                <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 z-20 pointer-events-none">
+                            <div class="flex items-center justify-end text-white font-medium text-sm">
+                                <span class="text-xs text-neutral-300 bg-black/50 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">Editing Styles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Container 4 -->
+                    <div class="video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center bg-neutral-900 rounded-2xl overflow-hidden group cursor-pointer border border-neutral-800 hover:border-blue-500/50 transition-all shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-neutral-800 flex items-center justify-center pointer-events-none">
+                            <video src="4.mp4" class="w-full h-full object-cover" loop playsinline></video>
+                        </div>
+                        <div class="play-overlay absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300">
+                            <div class="w-14 h-14 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-blue-500 group-hover:text-black transition-colors border border-white/20 shadow-xl">
+                                <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 z-20 pointer-events-none">
+                            <div class="flex items-center justify-end text-white font-medium text-sm">
+                                <span class="text-xs text-neutral-300 bg-black/50 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">Education</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM SECTION -->
+        <section id="problem" class="py-24 bg-[#0a0a0a] border-t border-neutral-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight text-white">
+                            Most Creators Are Ignoring the <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Biggest Growth Opportunity</span>
+                        </h2>
+                        <p class="text-lg text-neutral-400 mb-8">
+                            You spend hours researching, scripting, and filming incredible long-form videos. But if you fail to leverage Shorts, you're missing out on the exact format the YouTube algorithm is heavily promoting right now.
+                        </p>
+                        <div class="space-y-4">
+                            <!-- Problems Loop -->
+                            <div class="flex items-start gap-4 p-4 bg-neutral-900/50 rounded-2xl shadow-sm border border-neutral-800">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i data-lucide="users" class="w-6 h-6"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts bring millions of new viewers to your channel ecosystem.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 bg-neutral-900/50 rounded-2xl shadow-sm border border-neutral-800">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i data-lucide="trending-up" class="w-6 h-6"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts convert casual scrollers into loyal long-form subscribers.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 bg-neutral-900/50 rounded-2xl shadow-sm border border-neutral-800">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i data-lucide="zap" class="w-6 h-6"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts drastically increase your overall channel discovery.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 bg-neutral-900/50 rounded-2xl shadow-sm border border-neutral-800">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i data-lucide="youtube" class="w-6 h-6"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts revive and monetize old, forgotten long-form content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-neutral-900/20 rounded-[3rem] transform rotate-3 scale-105 -z-10"></div>
+                        <div class="bg-neutral-900 rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden border border-neutral-800">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-screen filter blur-[80px] opacity-20"></div>
+                            <h3 class="text-2xl font-bold mb-8">The Cost of Inaction</h3>
+                            <div class="space-y-6">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm text-neutral-400">
+                                        <span>Views without Shorts</span>
+                                        <span>Stagnant</span>
+                                    </div>
+                                    <div class="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-neutral-600 w-1/3 rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm font-medium text-cyan-400">
+                                        <span>Views with Optimized Shorts</span>
+                                        <span>Exponential</span>
+                                    </div>
+                                    <div class="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-400 w-11/12 rounded-full relative">
+                                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-12 bg-neutral-950/50 border border-neutral-800 rounded-2xl p-6 backdrop-blur-sm">
+                                <p class="text-neutral-300 italic">"I was stuck at 150k subs for a year. We started chopping my podcasts into Shorts, and hit 400k in 6 months."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION SECTION -->
+        <section id="solution" class="py-24 relative overflow-hidden bg-neutral-950 border-t border-neutral-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">We Turn Your Content Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Growth Machines</span></h2>
+                    <p class="text-xl text-neutral-400">You record the long video. We handle everything else. Here is our exact blueprint for scaling your channel with short-form content.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-5 gap-8 relative">
+                    <!-- Connecting line for desktop -->
+                    <div class="hidden lg:block absolute top-12 left-10 right-10 h-0.5 bg-neutral-800 z-0"></div>
+                    
+                    <!-- Steps -->
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 bg-neutral-900 rounded-full border-4 border-neutral-800 shadow-sm flex items-center justify-center text-3xl font-black text-neutral-600 mb-6 group-hover:border-blue-500/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-blue-500/10 transition-all duration-300">
+                            01
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Analyze Your Channel</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We deep-dive into your analytics to understand your audience, tone, and best-performing topics.</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 bg-neutral-900 rounded-full border-4 border-neutral-800 shadow-sm flex items-center justify-center text-3xl font-black text-neutral-600 mb-6 group-hover:border-blue-500/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-blue-500/10 transition-all duration-300">
+                            02
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Identify Viral Moments</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">Our team watches your long videos to extract the most engaging, high-retention 30-60 second clips.</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 bg-neutral-900 rounded-full border-4 border-neutral-800 shadow-sm flex items-center justify-center text-3xl font-black text-neutral-600 mb-6 group-hover:border-blue-500/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-blue-500/10 transition-all duration-300">
+                            03
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Edit High-Performing Shorts</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We add dynamic captions, b-roll, sound design, and fast-paced editing tailored for the Shorts algorithm.</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 bg-neutral-900 rounded-full border-4 border-neutral-800 shadow-sm flex items-center justify-center text-3xl font-black text-neutral-600 mb-6 group-hover:border-blue-500/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-blue-500/10 transition-all duration-300">
+                            04
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Optimize Titles & Hooks</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We craft curiosity-driven titles and visual hooks that stop the scroll in the first 3 seconds.</p>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 bg-neutral-900 rounded-full border-4 border-neutral-800 shadow-sm flex items-center justify-center text-3xl font-black text-neutral-600 mb-6 group-hover:border-blue-500/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-blue-500/10 transition-all duration-300">
+                            05
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Consistent Strategy</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We build a reliable publishing engine so you post high-quality Shorts consistently without extra work.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFITS SECTION -->
+        <section class="py-24 bg-[#0a0a0a] border-t border-neutral-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">The ROI of Professional Shorts</h2>
+                    <p class="text-neutral-400 max-w-2xl mx-auto">What happens when you let experts handle your short-form strategy.</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 flex items-center gap-4 hover:bg-neutral-800 hover:border-blue-500/30 transition-colors w-full sm:w-auto text-white">
+                        <div class="bg-black p-3 rounded-xl border border-neutral-800 shadow-inner">
+                            <i data-lucide="eye" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <span class="text-lg font-semibold whitespace-nowrap">More Views</span>
+                    </div>
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 flex items-center gap-4 hover:bg-neutral-800 hover:border-blue-500/30 transition-colors w-full sm:w-auto text-white">
+                        <div class="bg-black p-3 rounded-xl border border-neutral-800 shadow-inner">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <span class="text-lg font-semibold whitespace-nowrap">Faster Subscriber Growth</span>
+                    </div>
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 flex items-center gap-4 hover:bg-neutral-800 hover:border-blue-500/30 transition-colors w-full sm:w-auto text-white">
+                        <div class="bg-black p-3 rounded-xl border border-neutral-800 shadow-inner">
+                            <i data-lucide="scissors" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <span class="text-lg font-semibold whitespace-nowrap">Better Content Leverage</span>
+                    </div>
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 flex items-center gap-4 hover:bg-neutral-800 hover:border-blue-500/30 transition-colors w-full sm:w-auto text-white">
+                        <div class="bg-black p-3 rounded-xl border border-neutral-800 shadow-inner">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <span class="text-lg font-semibold whitespace-nowrap">Consistent Shorts Strategy</span>
+                    </div>
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 flex items-center gap-4 hover:bg-neutral-800 hover:border-blue-500/30 transition-colors w-full sm:w-auto text-white">
+                        <div class="bg-black p-3 rounded-xl border border-neutral-800 shadow-inner">
+                            <i data-lucide="rocket" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <span class="text-lg font-semibold whitespace-nowrap">Increased Discoverability</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHO WE HELP SECTION -->
+        <section class="py-24 bg-neutral-950 border-t border-neutral-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row gap-16 items-center">
+                    <div class="md:w-1/3">
+                        <h2 class="text-4xl font-bold mb-6 text-white">Who We Help</h2>
+                        <p class="text-lg text-neutral-400 mb-8">
+                            We specialize in working with information-dense creators. If you drop knowledge, share insights, or interview experts, your content is a goldmine for Shorts.
+                        </p>
+                        <a href="#contact" class="inline-flex items-center gap-2 text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">
+                            See if we're a fit <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                    <div class="md:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div class="bg-[#0a0a0a] p-6 rounded-2xl border border-neutral-800 flex flex-col items-center text-center gap-4 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all group">
+                            <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                                <i data-lucide="bar-chart-3" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-semibold text-white">Finance Creators</h4>
+                        </div>
+                        <div class="bg-[#0a0a0a] p-6 rounded-2xl border border-neutral-800 flex flex-col items-center text-center gap-4 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all group">
+                            <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                                <i data-lucide="briefcase" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-semibold text-white">Business & Tech</h4>
+                        </div>
+                        <div class="bg-[#0a0a0a] p-6 rounded-2xl border border-neutral-800 flex flex-col items-center text-center gap-4 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all group">
+                            <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                                <i data-lucide="book-open" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-semibold text-white">Educational Channels</h4>
+                        </div>
+                        <div class="bg-[#0a0a0a] p-6 rounded-2xl border border-neutral-800 flex flex-col items-center text-center gap-4 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all group">
+                            <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                                <i data-lucide="mic" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-semibold text-white">Podcasters</h4>
+                        </div>
+                        <div class="bg-[#0a0a0a] p-6 rounded-2xl border border-neutral-800 flex flex-col items-center text-center gap-4 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all group">
+                            <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                                <i data-lucide="message-square" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-semibold text-white">Interview Shows</h4>
+                        </div>
+                        <div class="bg-[#0a0a0a] p-6 rounded-2xl border border-neutral-800 flex flex-col items-center text-center gap-4 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 transition-all group">
+                            <div class="text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                                <i data-lucide="zap" class="w-8 h-8"></i>
+                            </div>
+                            <h4 class="font-semibold text-white">Thought Leaders</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY US SECTION -->
+        <section id="why-us" class="py-24 bg-[#0a0a0a] border-t border-neutral-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4 text-white">Why Hyp! Media?</h2>
+                    <p class="text-xl text-neutral-400">We don't just edit videos. We engineer algorithmic growth.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Freelancer Card -->
+                    <div class="p-8 rounded-[2rem] bg-neutral-900 border border-neutral-800">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-500">
+                                <i data-lucide="x" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">A Regular Editor</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-neutral-400"><i data-lucide="x" class="w-5 h-5 text-neutral-600 shrink-0 mt-0.5"></i> Needs you to find and provide the timestamps</li>
+                            <li class="flex items-start gap-3 text-neutral-400"><i data-lucide="x" class="w-5 h-5 text-neutral-600 shrink-0 mt-0.5"></i> Adds basic templates and generic captions</li>
+                            <li class="flex items-start gap-3 text-neutral-400"><i data-lucide="x" class="w-5 h-5 text-neutral-600 shrink-0 mt-0.5"></i> Just does exactly what they're told</li>
+                            <li class="flex items-start gap-3 text-neutral-400"><i data-lucide="x" class="w-5 h-5 text-neutral-600 shrink-0 mt-0.5"></i> Doesn't understand pacing or retention metrics</li>
+                        </ul>
+                    </div>
+
+                    <!-- Agency Card -->
+                    <div class="p-8 rounded-[2rem] bg-neutral-900 text-white shadow-xl relative overflow-hidden border border-blue-500/30">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-screen filter blur-[80px] opacity-20"></div>
+                        <div class="flex items-center gap-4 mb-8 relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-black shadow-lg shadow-blue-600/30">
+                                <i data-lucide="check" class="w-6 h-6 stroke-[3px]"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">Hyp! Media</h3>
+                        </div>
+                        <ul class="space-y-4 relative z-10">
+                            <li class="flex items-start gap-3 text-neutral-300"><i data-lucide="check-circle" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i> We hunt your long videos for viral moments</li>
+                            <li class="flex items-start gap-3 text-neutral-300"><i data-lucide="check-circle" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i> Advanced editing designed purely for loopability</li>
+                            <li class="flex items-start gap-3 text-neutral-300"><i data-lucide="check-circle" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i> Writes compelling titles and visual hooks</li>
+                            <li class="flex items-start gap-3 text-neutral-300"><i data-lucide="check-circle" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i> Data-driven strategy based on the YouTube algorithm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA SECTION -->
+        <section class="py-24 relative overflow-hidden bg-neutral-950 border-y border-neutral-900">
+            <div class="absolute inset-0 bg-blue-600/5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+                <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
+                    Unlock the Growth <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Hidden in Your Content</span>
+                </h2>
+                <p class="text-xl text-neutral-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    If you're posting long videos but not leveraging Shorts, you're missing one of the biggest growth opportunities on YouTube today. Let's fix that.
+                </p>
+                <a href="#contact" class="inline-flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-full font-bold text-xl hover:from-blue-400 hover:to-cyan-400 hover:scale-105 transition-all shadow-xl shadow-blue-600/20">
+                    Get Your Free Shorts Strategy <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-24 bg-[#0a0a0a]">
+            <div class="max-w-3xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4 text-white">Ready to Scale?</h2>
+                    <p class="text-neutral-400">Drop your details below and we'll send you a custom Shorts strategy for your channel.</p>
+                </div>
+
+                <!-- Success Message (Hidden by default) -->
+                <div id="success-message" class="hidden bg-blue-500/10 border border-blue-500/30 rounded-2xl p-12 text-center transform transition-all">
+                    <div class="w-16 h-16 bg-blue-500/20 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="check-circle" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Request Received!</h3>
+                    <p class="text-neutral-400">We're analyzing your channel and will be in touch within 24 hours.</p>
+                </div>
+
+                <!-- Contact Form -->
+                <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 md:p-12">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="8854b6e7-f2f1-43bd-940d-1e1dae376a83">
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-white mb-2">Name</label>
+                            <input 
+                                type="text" 
+                                name="name"
+                                required
+                                class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-neutral-600"
+                                placeholder="John Doe"
+                            />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-white mb-2">Email</label>
+                            <input 
+                                type="email" 
+                                name="email"
+                                required
+                                class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-neutral-600"
+                                placeholder="john@example.com"
+                            />
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-white mb-2">YouTube Channel Link</label>
+                        <input 
+                            type="url" 
+                            name="channel_link"
+                            required
+                            class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-neutral-600"
+                            placeholder="https://youtube.com/@yourchannel"
+                        />
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-white mb-2">Where did you discover us?</label>
+                        <div class="relative">
+                            <select 
+                                name="discovery_source" 
+                                required
+                                class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="" disabled selected>Select an option...</option>
+                                <option value="LinkedIn">LinkedIn</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Email">Email</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-400">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <label class="block text-sm font-semibold text-white mb-2">Tell us about your goals (Optional)</label>
+                        <textarea 
+                            name="goals"
+                            rows="4"
+                            class="w-full px-4 py-3 rounded-xl bg-[#0a0a0a] border border-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none placeholder-neutral-600"
+                            placeholder="I want to reach 1M subscribers by..."
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-xl font-bold text-lg hover:from-blue-400 hover:to-cyan-400 transition-colors flex items-center justify-center gap-2">
+                        Get Strategy <i data-lucide="rocket" class="w-5 h-5"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0a0a0a] text-neutral-400 py-16 border-t border-neutral-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Column 1: Brand & About -->
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center gap-2 font-bold text-2xl tracking-tight text-white">
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 text-black p-1.5 rounded-lg">
+                            <i data-lucide="play" class="w-6 h-6 stroke-[2.5px] fill-black"></i>
+                        </div>
+                        <span>Hyp!<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"> Media</span></span>
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        Your ultimate creative partner. We build, scale, and elevate personal brands through high-retention video content and algorithmic strategies.
+                    </p>
+                </div>
+
+                <!-- Column 2: Services -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Our Services</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="https://www.hypmedia.co.in/#services" class="hover:text-cyan-400 transition-colors">Long-Form Video Editing</a></li>
+                        <li><a href="#hero" class="hover:text-cyan-400 transition-colors">Short-Form Content</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#services" class="hover:text-cyan-400 transition-colors">Thumbnail Design</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#services" class="hover:text-cyan-400 transition-colors">YouTube Strategy & SEO</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#services" class="hover:text-cyan-400 transition-colors">Channel Management</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Quick Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="https://www.hypmedia.co.in" class="hover:text-cyan-400 transition-colors">Home Website</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#work" class="hover:text-cyan-400 transition-colors">Our Portfolio</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#about" class="hover:text-cyan-400 transition-colors">About Us</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#careers" class="hover:text-cyan-400 transition-colors">Careers</a></li>
+                        <li><a href="https://www.hypmedia.co.in/#contact" class="hover:text-cyan-400 transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Get in Touch</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-cyan-400 shrink-0"></i>
+                            <a href="mailto:hello@hypmedia.co.in" class="hover:text-white transition-colors">hello@hypmedia.co.in</a>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-cyan-400 shrink-0"></i>
+                            <a href="tel:+919485509850" class="hover:text-white transition-colors">+91 9485509850</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 border-t border-neutral-900 text-sm flex justify-center items-center text-center">
+                <p>© <span id="year"></span> Hyp! Media. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Set Current Year in Footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Handle Contact Form Submission via Web3Forms AJAX
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            
+            // Show loading state
+            submitButton.innerHTML = 'Sending...';
+            submitButton.disabled = true;
+
+            const formData = new FormData(form);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    // Hide form and show success message
+                    form.classList.add('hidden');
+                    document.getElementById('success-message').classList.remove('hidden');
+                } else {
+                    console.log(response);
+                    alert("Something went wrong! Please try again.");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Something went wrong! Please check your connection and try again.");
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
+
+        // Interactive Video Player Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const isMobile = window.innerWidth < 768;
+            const videoContainers = document.querySelectorAll('.video-container');
+
+            // Mobile Intersection Observer (Plays video when centered in the screen)
+            if (isMobile) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.6 // Trigger when 60% of video is visible
+                };
+
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const video = entry.target.querySelector('video');
+                        const overlay = entry.target.querySelector('.play-overlay');
+                        
+                        if (entry.isIntersecting) {
+                            video.play().catch(e => console.log("Autoplay blocked:", e));
+                            overlay.style.opacity = '0';
+                        } else {
+                            video.pause();
+                            overlay.style.opacity = '1';
+                        }
+                    });
+                }, observerOptions);
+
+                videoContainers.forEach(container => videoObserver.observe(container));
+            }
+
+            // Click to Play/Pause (For Desktop & Manual overrides on Mobile)
+            videoContainers.forEach(container => {
+                const video = container.querySelector('video');
+                const overlay = container.querySelector('.play-overlay');
+                
+                container.addEventListener('click', () => {
+                    if (video.paused) {
+                        // Pause all other videos before playing the clicked one
+                        document.querySelectorAll('.video-container video').forEach(v => {
+                            if(v !== video) {
+                                v.pause();
+                                v.closest('.video-container').querySelector('.play-overlay').style.opacity = '1';
+                            }
+                        });
+
+                        video.play();
+                        overlay.style.opacity = '0';
+                    } else {
+                        video.pause();
+                        overlay.style.opacity = '1';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
