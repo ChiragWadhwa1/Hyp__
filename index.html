@@ -3,252 +3,606 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hyp! Media</title>
+    <title>Hyp! Media | Authority to Revenue</title>
     <link rel="icon" type="image/png" href="/logo.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        roobert: ['Roobert', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+    <!-- Premium Phosphor & Lucide Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Extracted stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="overflow-x-hidden">
+<body class="selection:bg-blue-500/30 selection:text-blue-100 pb-20 md:pb-0">
 
-    <div id="hero-canvas-container"></div>
-    
-    <div id="scroll-container" class="relative z-10">
+    <!-- Ambient Fixed Background -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#050505]">
+        <div class="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-cyan-500/10 rounded-full blur-[120px] mix-blend-screen"></div>
+        <div class="absolute top-[40%] right-[20%] w-[30vw] h-[30vw] bg-purple-500/5 rounded-full blur-[100px] mix-blend-screen"></div>
+    </div>
+
+    <!-- ==========================================
+         HOME VIEW (Main Page)
+         ========================================== -->
+    <div id="scroll-container" class="relative z-10 block transition-opacity duration-300">
 
         <!-- Header -->
-        <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-            <div class="container mx-auto px-6 py-5 flex justify-between items-center">
-                <a href="#">
-                    <div>
-                        <h1 class="text-2xl font-bold text-white">Hyp! Media</h1>
-                    </div>
+        <header id="header" class="fixed top-0 left-0 right-0 z-[70] transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                <a href="#" onclick="showHomeView()" class="flex items-center gap-2 font-bold text-2xl tracking-tight hover:opacity-80 transition-opacity">
+                    <span class="font-roobert">Hyp!<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"> Media</span></span>
                 </a>
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#problem" class="hover:text-accent-blue transition-colors">The Problem</a>
-                    <a href="#solution" class="hover:text-accent-blue transition-colors">Our Solution</a>
-                    <a href="#services" class="hover:text-accent-blue transition-colors">Services</a>
-                    <a href="#roi-engine" class="hover:text-accent-blue transition-colors">ROI Engine</a>
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-neutral-300">
+                    <a href="#problem" class="hover:text-cyan-400 transition-colors drop-shadow-md">The Bottleneck</a>
+                    <a href="#solution" class="hover:text-cyan-400 transition-colors drop-shadow-md">The Framework</a>
+                    <a href="#services" class="hover:text-cyan-400 transition-colors drop-shadow-md">Our Partners</a>
+                    <a href="#testimonials" class="hover:text-cyan-400 transition-colors drop-shadow-md">Case Studies</a>
+                    <a href="#roi-engine" class="hover:text-cyan-400 transition-colors drop-shadow-md">The Alpha</a>
                 </nav>
-                <a href="#contact" class="magnetic-button hidden md:inline-block bg-accent-blue text-black font-bold py-3 px-6 rounded-full hover:scale-105">
-                    Multiply My Revenue
+                <a href="#contact" class="magnetic-button hidden md:flex bg-white/90 backdrop-blur-md text-black font-semibold py-2.5 px-6 rounded-full hover:bg-white transition-all items-center gap-2 font-roobert">
+                    Scale Your Brand <i class="ph-bold ph-arrow-right text-base"></i>
                 </a>
                 <button id="menu-btn" class="md:hidden z-50">
-                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                     <i class="ph-bold ph-list text-3xl text-white"></i>
                 </button>
             </div>
         </header>
         
         <!-- Mobile Nav -->
-        <div id="mobile-nav" class="fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 text-2xl -translate-x-full transition-transform duration-300">
-             <a href="#problem" class="mobile-link text-white">The Problem</a>
-             <a href="#solution" class="mobile-link text-white">Our Solution</a>
-             <a href="#services" class="mobile-link text-white">Services</a>
-             <a href="#roi-engine" class="mobile-link text-white">ROI Engine</a>
-             <a href="#contact" class="mt-8 bg-accent-blue text-black font-bold py-3 px-8 rounded-full">Multiply My Revenue</a>
+        <div id="mobile-nav" class="fixed top-0 left-0 w-full h-screen bg-[#050505]/95 backdrop-blur-3xl z-[60] flex flex-col items-center justify-center space-y-8 text-2xl -translate-x-full transition-transform duration-300 border-r border-white/10">
+             <a href="#problem" class="mobile-link text-white hover:text-cyan-400 transition-colors font-roobert font-bold">The Bottleneck</a>
+             <a href="#solution" class="mobile-link text-white hover:text-cyan-400 transition-colors font-roobert font-bold">The Framework</a>
+             <a href="#services" class="mobile-link text-white hover:text-cyan-400 transition-colors font-roobert font-bold">Our Partners</a>
+             <a href="#testimonials" class="mobile-link text-white hover:text-cyan-400 transition-colors font-roobert font-bold">Case Studies</a>
+             <a href="#roi-engine" class="mobile-link text-white hover:text-cyan-400 transition-colors font-roobert font-bold">The Alpha</a>
+             <a href="#contact" class="mobile-link mt-8 bg-gradient-to-r from-blue-500 to-cyan-400 text-black font-bold py-3 px-8 rounded-full font-roobert">Scale Your Brand</a>
         </div>
 
+        <!-- Mobile Bottom Nav -->
+        <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-6 left-0 right-0 mx-auto w-max z-[90] flex items-center justify-center px-6 py-2.5 gap-6 glow-border rounded-full shadow-2xl shadow-black/90 backdrop-blur-3xl">
+             <a href="#scroll-container" class="nav-link relative flex items-center justify-center transition-all duration-300" aria-label="Top">
+                 <i class="ph-fill ph-house text-[24px] text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] scale-110 transition-all duration-300"></i>
+             </a>
+             <a href="#solution" class="nav-link relative flex items-center justify-center transition-all duration-300 opacity-70" aria-label="Our Solution">
+                 <i class="ph-light ph-compass text-[24px] text-neutral-400 transition-all duration-300"></i>
+             </a>
+             <a href="#services" class="nav-link relative flex items-center justify-center transition-all duration-300 opacity-70" aria-label="Services">
+                 <i class="ph-light ph-users-three text-[24px] text-neutral-400 transition-all duration-300"></i>
+             </a>
+             <a href="#testimonials" class="nav-link relative flex items-center justify-center transition-all duration-300 opacity-70" aria-label="Testimonials">
+                 <i class="ph-light ph-chart-line-up text-[24px] text-neutral-400 transition-all duration-300"></i>
+             </a>
+             <a href="#contact" class="nav-link relative flex items-center justify-center transition-all duration-300 opacity-70" aria-label="Contact">
+                 <i class="ph-light ph-paper-plane-tilt text-[24px] text-neutral-400 transition-all duration-300"></i>
+             </a>
+        </nav>
 
         <!-- Hero Section -->
-        <section class="h-[180vh] relative">
-            <div class="sticky top-0 h-screen flex flex-col justify-center items-center text-center px-6">
-                <div id="hero-content">
-                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter">
-                        Stop Blending In. <br class="hidden md:block"/> Start <span class="accent-blue">Taking Over.</span>
-                    </h1>
-                    <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
-                        Your online presence is more than a profile; it's a revenue engine. We help founders and startups ignite their authority and turn connections into contracts.
-                    </p>
-                    <div class="mt-10">
-                        <a href="#contact" class="magnetic-button inline-block bg-white text-black font-bold py-4 px-8 rounded-full hover:scale-105">
-                           Start The Countdown
-                        </a>
+        <section class="min-h-[100vh] relative flex flex-col justify-center items-center overflow-hidden pt-20">
+            <div class="swoosh-element"></div>
+
+            <div class="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+                <canvas id="hero-globe-canvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-70 md:opacity-30"></canvas>
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+                
+                <!-- Floating Social Media & Authority Elements -->
+                <div class="absolute top-[20%] left-[10%] md:left-[15%] opacity-20 animate-float">
+                    <div class="glow-border p-4 md:p-5 rounded-3xl backdrop-blur-none">
+                        <i class="ph-light ph-linkedin-logo text-[48px] md:text-[80px] text-blue-400"></i>
                     </div>
+                </div>
+                <div class="absolute top-[25%] right-[10%] md:right-[15%] opacity-20 animate-float-delayed">
+                    <div class="glow-border p-4 md:p-5 rounded-3xl backdrop-blur-none">
+                        <i class="ph-light ph-instagram-logo text-[48px] md:text-[80px] text-pink-400"></i>
+                    </div>
+                </div>
+                <div class="absolute top-[65%] left-[5%] md:left-[12%] opacity-15 animate-float-slow">
+                    <i class="ph-light ph-x-logo text-[48px] md:text-[72px] text-sky-400"></i>
+                </div>
+                <div class="absolute top-[70%] right-[12%] md:right-[18%] opacity-15 animate-float">
+                    <div class="glow-border p-4 md:p-5 rounded-3xl backdrop-blur-none">
+                        <i class="ph-light ph-youtube-logo text-[48px] md:text-[80px] text-red-400"></i>
+                    </div>
+                </div>
+                <div class="absolute top-[40%] right-[5%] md:right-[8%] opacity-10 animate-float-slow">
+                    <i class="ph-light ph-facebook-logo text-[56px] md:text-[88px] text-blue-500"></i>
+                </div>
+                <div class="absolute top-[45%] left-[8%] md:left-[10%] opacity-10 animate-float-delayed">
+                    <i class="ph-light ph-broadcast text-[64px] md:text-[96px] text-green-400"></i>
+                </div>
+                <div class="absolute top-[15%] left-[30%] md:left-[35%] opacity-15 animate-float-delayed">
+                    <i class="ph-light ph-microphone-stage text-[56px] md:text-[80px] text-purple-400"></i>
+                </div>
+                <div class="absolute top-[18%] right-[28%] md:right-[32%] opacity-20 animate-float">
+                    <i class="ph-light ph-trend-up text-[64px] md:text-[96px] text-cyan-400"></i>
+                </div>
+                <div class="absolute top-[75%] left-[25%] md:left-[30%] opacity-15 animate-float-slow">
+                    <div class="glow-border p-3 md:p-4 rounded-2xl backdrop-blur-none">
+                        <i class="ph-light ph-film-strip text-[56px] md:text-[80px] text-rose-400"></i>
+                    </div>
+                </div>
+                <div class="absolute top-[80%] right-[25%] md:right-[30%] opacity-10 animate-float-delayed">
+                    <i class="ph-light ph-medal text-[64px] md:text-[104px] text-amber-400"></i>
+                </div>
+                <div class="absolute top-[50%] left-[20%] md:left-[25%] opacity-10 animate-float">
+                    <i class="ph-light ph-planet text-[80px] md:text-[120px] text-blue-300"></i>
+                </div>
+                <div class="absolute top-[55%] right-[22%] md:right-[26%] opacity-15 animate-float-slow">
+                    <div class="glow-border p-3 md:p-4 rounded-2xl backdrop-blur-none">
+                        <i class="ph-light ph-envelope-simple text-[56px] md:text-[80px] text-orange-400"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 text-center px-6 max-w-5xl mx-auto w-full" id="hero-content">
+                <h1 class="font-roobert text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight mb-6 animate-title-reveal">
+                    Focus is the <br class="hidden md:block"/> New <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Currency.</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-neutral-300 leading-relaxed animate-sub-reveal">
+                    In an endless sea of noise, cheap attention is worthless. We engineer digital authority specifically for <span class="text-white font-semibold">founders and hyper-growth startups</span>, transforming fragmented attention into scalable inbound pipeline and high-LTV revenue.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-btn-reveal">
+                    <a href="#contact" class="magnetic-button w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-full font-bold text-lg hover:from-blue-400 hover:to-cyan-400 hover:shadow-lg hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-2 font-roobert">
+                        Scale Your Brand <i class="ph-bold ph-arrow-right text-xl"></i>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <div id="main-content-wrapper">
+        <!-- Main Content Area -->
+        <div id="main-content-wrapper" class="bg-transparent relative z-10">
+
             <!-- Problem Section -->
-            <section id="problem" class="content-section py-24 md:py-32">
-                <div class="container mx-auto px-6">
-                    <div class="text-center max-w-3xl mx-auto section-fade-in">
-                         <h3 class="text-base font-semibold text-blue-400 tracking-wider mb-2">GROUND CONTROL</h3>
-                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Is Your Signal Lost in The Noise?</h2>
-                        <p class="max-w-3xl mx-auto text-slate-300 text-lg mb-12">Founders are busy building the future. But online, many are invisible, broadcasting on a dead frequency. Your groundbreaking work deserves a megaphone, not a whisper.</p>
+            <section id="problem" class="content-section py-24 md:py-32 border-t border-white/5">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="section-fade-in w-full">
+                        <div class="text-center max-w-3xl mx-auto w-full">
+                             <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">The Bottleneck</h3>
+                            <h2 class="font-roobert text-4xl md:text-5xl font-bold text-white mb-6">Is Your Product Outpacing <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Your Presence?</span></h2>
+                            <p class="max-w-3xl mx-auto text-neutral-400 text-lg mb-12">You're relentlessly shipping product, but your digital footprint is invisible. If your ideal ICP can't find you, you're bleeding market share to louder, lesser competitors.</p>
+                        </div>
                     </div>
-                    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="glow-border p-8 rounded-2xl section-fade-in">
-                            <h4 class="text-xl font-bold text-white mb-2">Revenue Leaks</h4>
-                            <p class="text-slate-400">Your ideal clients are scrolling past you, signing deals with founders who have a stronger, more consistent presence.</p>
+                    
+                    <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                        <svg style="display: none;">
+                            <symbol id="icon-sheep" viewBox="0 0 64 64">
+                                <path d="M18 46v10M26 46v10M38 46v10M46 46v10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M46 20a8 8 0 0 0-7.5 5.3 10 10 0 0 0-14.7-1.6 8 8 0 0 0-11 5.4 8 8 0 0 0-2.6 14.5A8 8 0 0 0 16 50h26a8 8 0 0 0 5.4-13.9 8 8 0 0 0 4.1-14 8 8 0 0 0-5.5-2.1z" fill="currentColor"/>
+                                <circle cx="48" cy="30" r="7" fill="currentColor" opacity="0.6"/>
+                            </symbol>
+                        </svg>
+
+                        <div class="section-fade-in w-full h-full">
+                            <div class="genie-target glow-border p-8 md:p-12 rounded-[2rem] flex flex-col items-center h-full w-full">
+                                <div class="mb-10 w-full max-w-[320px] grid grid-cols-5 gap-4 opacity-70">
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                </div>
+                                <h4 class="font-roobert text-2xl font-bold text-white mb-3 text-center">The Commodity Trap</h4>
+                                <p class="text-neutral-400 text-center leading-relaxed">You're competing purely on features. Your messaging is drowning in a saturated market, leaving you with zero organic leverage.</p>
+                            </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.2s;">
-                            <h4 class="text-xl font-bold text-white mb-2">Wasted Time</h4>
-                            <p class="text-slate-400">You're spending hours trying to figure out what to post, only to be met with silence and lackluster engagement.</p>
-                        </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.4s;">
-                            <h4 class="text-xl font-bold text-white mb-2">Weak Network</h4>
-                            <p class="text-slate-400">You're connected to everyone but influential with no one. Your network isn't a safety net; it's a list of strangers.</p>
+
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.15s;">
+                            <div class="genie-target glow-border p-8 md:p-12 rounded-[2rem] border-cyan-500/20 shadow-[0_0_30px_rgba(34,211,238,0.05)] flex flex-col items-center relative overflow-hidden h-full w-full">
+                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-cyan-500/10 rounded-full blur-[60px] pointer-events-none"></div>
+                                <div class="mb-10 w-full max-w-[320px] grid grid-cols-5 gap-4 relative z-10 items-center">
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <div class="relative flex items-center justify-center">
+                                        <div class="absolute inset-0 bg-white/20 blur-xl rounded-full"></div>
+                                        <svg class="w-14 h-14 mx-auto text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.8)] transform -translate-y-2 animate-float relative z-20"><use href="#icon-sheep"/></svg>
+                                    </div>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                    <svg class="w-10 h-10 mx-auto text-blue-500/30"><use href="#icon-sheep"/></svg>
+                                </div>
+                                <h4 class="font-roobert text-2xl font-bold text-white mb-3 text-center relative z-10">The Category of One</h4>
+                                <p class="text-cyan-400 text-center leading-relaxed relative z-10">You monopolize attention. By building an untouchable personal brand, you drive high-intent inbound leads and dictate your own market positioning.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Solution Section -->
-            <section id="solution" class="content-section py-24 md:py-32">
-                 <div class="container mx-auto px-6">
-                    <div class="text-center max-w-3xl mx-auto section-fade-in">
-                        <h3 class="text-base font-semibold text-accent-blue tracking-wider mb-2">THE IGNITION SEQUENCE</h3>
-                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-12">How We Launch Your Authority.</h2>
+            <section id="solution" class="content-section py-24 md:py-32 border-t border-white/5 relative">
+                 <div class="max-w-7xl mx-auto px-6">
+                    <div class="section-fade-in w-full">
+                        <div class="text-center max-w-3xl mx-auto w-full">
+                            <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">The Framework</h3>
+                            <h2 class="font-roobert text-4xl md:text-5xl font-bold text-white mb-16">How We Engineer Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Category of One.</span></h2>
+                        </div>
                     </div>
-                    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                        <div class="glow-border p-8 rounded-2xl section-fade-in">
-                            <div class="text-5xl font-black accent-blue">01</div>
-                            <h3 class="mt-4 text-2xl font-bold">Blueprint & Strategy</h3>
-                            <p class="mt-4 text-gray-400">We don't guess, we architect. We dive deep into your brand, your voice, and your goals to build a content strategy that positions you as the undeniable expert in your field.</p>
+
+                    <div class="grid lg:grid-cols-3 gap-8 relative">
+                        <div class="hidden lg:block absolute top-12 left-10 right-10 h-px bg-white/10 z-0"></div>
+
+                        <!-- Step 01: Brand Architecture -->
+                        <div class="section-fade-in w-full h-full relative z-10">
+                            <div class="genie-target glow-border p-8 rounded-2xl h-full w-full">
+                                <div class="step-badge mx-auto lg:mx-0 mb-6">
+                                    <div class="step-badge-inner">
+                                        <i class="ph-light ph-compass-rose"></i>
+                                        <span>01</span>
+                                    </div>
+                                </div>
+                                <h3 class="font-roobert text-2xl font-bold text-white mb-3 text-center lg:text-left">Brand Architecture</h3>
+                                <p class="text-neutral-400 leading-relaxed text-center lg:text-left">We don't guess; we reverse-engineer. We audit your market, nail your positioning, and craft a scalable content thesis that establishes undeniable authority.</p>
+                            </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in border-accent-blue shadow-lg shadow-blue-500/20" style="transition-delay: 0.2s;">
-                            <div class="text-5xl font-black accent-blue">02</div>
-                            <h3 class="mt-4 text-2xl font-bold">Content That Converts</h3>
-                            <p class="mt-4 text-gray-400">We craft compelling content—from sharp insights to powerful stories—that doesn't just get likes, it starts conversations and generates qualified inbound leads.</p>
+
+                        <!-- Step 02: Growth Content -->
+                        <div class="section-fade-in w-full h-full relative z-10" style="transition-delay: 0.15s;">
+                            <div class="genie-target glow-border p-8 rounded-2xl border-blue-500/20 shadow-[0_0_20px_rgba(59,130,246,0.05)] h-full w-full backdrop-blur-md">
+                                <div class="step-badge mx-auto lg:mx-0 mb-6">
+                                    <div class="step-badge-inner">
+                                        <i class="ph-light ph-waveform"></i>
+                                        <span>02</span>
+                                    </div>
+                                </div>
+                                <h3 class="font-roobert text-2xl font-bold text-white mb-3 text-center lg:text-left">Growth-Optimized Content</h3>
+                                <p class="text-neutral-400 leading-relaxed text-center lg:text-left">We produce high-leverage assets—from deep-dive insights to viral short-form—designed to hack algorithms and funnel ideal prospects into your pipeline.</p>
+                            </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.4s;">
-                            <div class="text-5xl font-black accent-blue">03</div>
-                            <h3 class="mt-4 text-2xl font-bold">Multiply & Monetize</h3>
-                            <p class="mt-4 text-gray-400">We manage your presence, engage with your network, and identify opportunities, transforming your digital presence from a chore into a predictable revenue stream.</p>
+
+                        <!-- Step 03: Monetization -->
+                        <div class="section-fade-in w-full h-full relative z-10" style="transition-delay: 0.3s;">
+                            <div class="genie-target glow-border p-8 rounded-2xl h-full w-full backdrop-blur-md">
+                                <div class="step-badge mx-auto lg:mx-0 mb-6">
+                                    <div class="step-badge-inner">
+                                        <i class="ph-light ph-circles-three-plus"></i>
+                                        <span>03</span>
+                                    </div>
+                                </div>
+                                <h3 class="font-roobert text-2xl font-bold text-white mb-3 text-center lg:text-left">Audience Monetization & Scale</h3>
+                                <p class="text-neutral-400 leading-relaxed text-center lg:text-left">Attention without conversion is vanity. We manage your entire ecosystem, nurturing your audience and converting digital equity into predictable revenue.</p>
+                            </div>
                         </div>
                     </div>
                  </div>
             </section>
 
              <!-- Services Section -->
-            <section id="services" class="content-section py-24 md:py-32">
-                 <div class="container mx-auto px-6">
-                    <div class="text-center max-w-3xl mx-auto section-fade-in">
-                        <h2 class="text-3xl md:text-5xl font-bold">Our <span class="accent-blue">Digital PR Services</span></h2>
-                         <p class="mt-6 text-lg text-gray-400">Tailored solutions designed for modern brands and their leaders. We specialize in building authority where it matters most.</p>
+            <section id="services" class="content-section py-24 md:py-32 border-t border-white/5">
+                 <div class="max-w-7xl mx-auto px-6">
+                    <div class="section-fade-in w-full">
+                        <div class="text-center max-w-3xl mx-auto w-full">
+                            <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">Our Ideal Partners</h3>
+                            <h2 class="font-roobert text-4xl md:text-5xl font-bold text-white">Growth Playbooks for <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Scalable Brands</span></h2>
+                             <p class="mt-6 text-lg text-neutral-400">Tailored digital architectures for modern brands, top-tier creators, and visionary founders. We build leverage where it yields the highest ROI.</p>
+                        </div>
                     </div>
+
                     <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
-                            <div class="text-3xl accent-blue mt-1">🚀</div>
-                            <div>
-                                <h3 class="text-2xl font-bold">For Startups & Brands</h3>
-                                <p class="mt-3 text-gray-400">Build credibility and attract investors with strategic media placements, product launches, and powerful brand storytelling.</p>
-                                 <button data-modal="brandModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">View Startup Blueprint &rarr;</button>
+                        <!-- Creator Economies (Links to Shorts Playbook) -->
+                        <div class="section-fade-in w-full h-full">
+                            <div class="genie-target glow-border p-8 rounded-2xl flex flex-col sm:flex-row items-start gap-6 group h-full w-full">
+                                <div class="service-icon-wrap">
+                                    <i class="ph-light ph-shooting-star"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-roobert text-2xl font-bold text-white mb-2">Creator Economies</h3>
+                                    <p class="text-neutral-400 leading-relaxed">Turn your long-form IP into high-velocity, algorithmic Shorts that capture market share and drive exponential audience growth.</p>
+                                     <button onclick="triggerHaptic(); showShortsView();" class="mt-6 inline-flex items-center font-semibold text-cyan-400 hover:text-cyan-300 transition-colors gap-1 font-roobert">View Shorts Playbook <i class="ph-bold ph-arrow-right text-base"></i></button>
+                                </div>
                             </div>
                         </div>
-                         <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
-                            <div class="text-3xl accent-blue mt-1">👤</div>
-                            <div>
-                                <h3 class="text-2xl font-bold">For Founders & Leaders</h3>
-                                <p class="mt-3 text-gray-400">Establish your personal brand as a thought leader through podcast features, bylined articles, and expert positioning.</p>
-                                <button data-modal="founderModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">View Founder Blueprint &rarr;</button>
+
+                        <!-- Founders & CXOs -->
+                        <div class="section-fade-in w-full h-full">
+                            <div class="genie-target glow-border p-8 rounded-2xl flex flex-col sm:flex-row items-start gap-6 group h-full w-full">
+                                <div class="service-icon-wrap">
+                                    <i class="ph-light ph-crown-simple"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-roobert text-2xl font-bold text-white mb-2">Founders & CXOs</h3>
+                                    <p class="text-neutral-400 leading-relaxed">Transform your LinkedIn into an inbound lead engine. We run your personal brand, positioning you as an industry thought leader.</p>
+                                    <button data-modal="linkedinModal" class="modal-trigger mt-6 inline-flex items-center font-semibold text-cyan-400 hover:text-cyan-300 transition-colors gap-1 font-roobert">View LinkedIn Playbook <i class="ph-bold ph-arrow-right text-base"></i></button>
+                                </div>
                             </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
-                            <div class="text-3xl accent-blue mt-1">💡</div>
-                            <div>
-                                <h3 class="text-2xl font-bold">For AI Companies</h3>
-                                <p class="mt-3 text-gray-400">Connect with the most engaged tech audiences, from early adopters to industry leaders, driving awareness and trust in competitive AI markets.</p>
-                                <button data-modal="aiModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">View AI Blueprint &rarr;</button>
+
+                        <!-- Seed to Series C -->
+                        <div class="section-fade-in w-full h-full">
+                            <div class="genie-target glow-border p-8 rounded-2xl flex flex-col sm:flex-row items-start gap-6 group h-full w-full">
+                                <div class="service-icon-wrap">
+                                    <i class="ph-light ph-vault"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-roobert text-2xl font-bold text-white mb-2">Seed to Series C</h3>
+                                    <p class="text-neutral-400 leading-relaxed">Control the narrative. Build unshakeable credibility for your next funding round with strategic digital PR and aggressive ORM.</p>
+                                    <button data-modal="prModal" class="modal-trigger mt-6 inline-flex items-center font-semibold text-cyan-400 hover:text-cyan-300 transition-colors gap-1 font-roobert">View PR & ORM Playbook <i class="ph-bold ph-arrow-right text-base"></i></button>
+                                </div>
                             </div>
                         </div>
-                         <div class="glow-border p-8 rounded-2xl flex items-start space-x-6 section-fade-in">
-                            <div class="text-3xl accent-blue mt-1">🔗</div>
-                            <div>
-                                <h3 class="text-2xl font-bold">LinkedIn Management</h3>
-                                <p class="mt-3 text-gray-400">Turn your LinkedIn profile into a revenue engine. We handle content, growth, and lead generation, so you can focus on closing deals.</p>
-                                <button data-modal="linkedinModal" class="modal-trigger mt-4 inline-block font-semibold text-accent-blue hover:underline">See the Data &rarr;</button>
+
+                        <!-- D2C & E-Commerce -->
+                        <div class="section-fade-in w-full h-full">
+                            <div class="genie-target glow-border p-8 rounded-2xl flex flex-col sm:flex-row items-start gap-6 group h-full w-full">
+                                <div class="service-icon-wrap">
+                                    <i class="ph-light ph-lightning"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-roobert text-2xl font-bold text-white mb-2">D2C & E-Commerce</h3>
+                                    <p class="text-neutral-400 leading-relaxed">Borrow trust at scale. We pair you with high-converting creators to bypass ad fatigue and drive massive, targeted acquisition.</p>
+                                    <button data-modal="influencerModal" class="modal-trigger mt-6 inline-flex items-center font-semibold text-cyan-400 hover:text-cyan-300 transition-colors gap-1 font-roobert">View Influencer Playbook <i class="ph-bold ph-arrow-right text-base"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                  </div>
             </section>
 
-            <!-- ROI Engine Section -->
-            <section id="roi-engine" class="content-section py-24 md:py-32">
-                 <div class="container mx-auto px-6">
-                     <div class="text-center max-w-3xl mx-auto section-fade-in">
-                        <h3 class="text-base font-semibold text-accent-blue tracking-wider mb-2">THE ROI ENGINE</h3>
-                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">From Authority to Revenue.</h2>
-                         <p class="max-w-3xl mx-auto text-slate-300 text-lg mb-12">This isn't just about presence; it's about profit. Our process is a systematic engine designed to turn your influence into a predictable pipeline of high-value opportunities and measurable financial growth.</p>
+            <!-- Testimonials / Impact Section -->
+            <section id="testimonials" class="content-section py-24 md:py-32 border-t border-white/5">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="section-fade-in w-full">
+                        <div class="text-center max-w-3xl mx-auto mb-16 w-full">
+                            <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">Case Studies</h3>
+                            <h2 class="font-roobert text-4xl md:text-5xl font-bold text-white mb-6">The Alpha We <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Generate.</span></h2>
+                             <p class="max-w-3xl mx-auto text-neutral-400 text-lg">We don't just chase impressions; we optimize for business outcomes. Here's how we've scaled presence and revenue for our top-tier partners.</p>
+                        </div>
                     </div>
-                    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                         <div class="glow-border p-8 rounded-2xl section-fade-in">
-                            <h4 class="text-xl font-bold text-white mb-2">1. Authority &rarr; Higher Prices</h4>
-                            <p class="text-slate-400">By establishing you as the go-to expert, we build immense perceived value. This allows you to command premium pricing, increasing your average deal size and profitability.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="section-fade-in w-full h-full">
+                            <div onclick="triggerHaptic(); showWorkView();" class="genie-target glow-border p-8 rounded-2xl relative group h-full w-full cursor-pointer hover:border-cyan-400/40 transition-colors">
+                                <div class="flex items-center gap-4 mb-6 relative z-10">
+                                    <img src="https://placehold.co/100x100/1e3a8a/60a5fa?text=AI" alt="Azhar Iqubal" class="w-14 h-14 rounded-full object-cover border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                                    <div>
+                                        <h4 class="font-roobert font-bold text-white text-lg group-hover:text-cyan-400 transition-colors">Azhar Iqubal</h4>
+                                        <p class="text-sm text-cyan-400 font-medium">Founder, Inshorts</p>
+                                    </div>
+                                </div>
+                                <p class="text-neutral-300 relative z-10 text-lg leading-relaxed">Helped him reach a massive new audience through strategic podcast clipping. This built significant authority in the startup space, resulting in exceptional performance and engagement leading up to Shark Tank.</p>
+                            </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.15s;">
-                            <h4 class="text-xl font-bold text-white mb-2">2. Amplification &rarr; Lower Costs</h4>
-                            <p class="text-slate-400">Strategic amplification puts you in front of ideal customers organically. This reduces reliance on expensive ads, drastically lowering your Customer Acquisition Cost (CAC).</p>
+
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.15s;">
+                            <div onclick="triggerHaptic(); showWorkView();" class="genie-target glow-border p-8 rounded-2xl relative group h-full w-full cursor-pointer hover:border-cyan-400/40 transition-colors">
+                                <div class="flex items-center gap-4 mb-6 relative z-10">
+                                    <img src="https://placehold.co/100x100/831843/f472b6?text=RU" alt="Riya Upreti" class="w-14 h-14 rounded-full object-cover border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                                    <div>
+                                        <h4 class="font-roobert font-bold text-white text-lg group-hover:text-cyan-400 transition-colors">Riya Upreti</h4>
+                                        <p class="text-sm text-cyan-400 font-medium">Educational Creator</p>
+                                    </div>
+                                </div>
+                                <p class="text-neutral-300 relative z-10 text-lg leading-relaxed">For this educational creator, we fueled subconscious audience recognition by strategically placing her on high-traffic feature and clip channels to accelerate her authority and reach.</p>
+                            </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.3s;">
-                            <h4 class="text-xl font-bold text-white mb-2">3. Inbound Flow &rarr; Faster Sales</h4>
-                            <p class="text-slate-400">Authority builds trust before the first call. Inbound leads are pre-sold on your expertise, leading to higher conversion rates and shorter sales cycles. You spend less time convincing and more time closing.</p>
+
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.3s;">
+                            <div onclick="triggerHaptic(); showWorkView();" class="genie-target glow-border p-8 rounded-2xl relative group h-full w-full cursor-pointer hover:border-cyan-400/40 transition-colors">
+                                <div class="flex items-center gap-4 mb-6 relative z-10">
+                                    <img src="https://placehold.co/100x100/14532d/4ade80?text=KKK" alt="Kal Ke Krorepati" class="w-14 h-14 rounded-full object-cover border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                                    <div>
+                                        <h4 class="font-roobert font-bold text-white text-lg group-hover:text-cyan-400 transition-colors">Kal Ke Krorepati</h4>
+                                        <p class="text-sm text-cyan-400 font-medium">JioHotstar Show</p>
+                                    </div>
+                                </div>
+                                <p class="text-neutral-300 relative z-10 text-lg leading-relaxed">Built an engaging clipping series across their social channels and JioHotstar trailer. Our performance marketing funnels also successfully drove mass registrations for their upcoming season.</p>
+                            </div>
                         </div>
-                        <div class="glow-border p-8 rounded-2xl section-fade-in" style="transition-delay: 0.45s;">
-                            <h4 class="text-xl font-bold text-white mb-2">4. Monetization &rarr; Predictable Growth</h4>
-                            <p class="text-slate-400">The result is a scalable pipeline of opportunities. This isn't just about one-off leads; it's about building a sustainable engine for long-term revenue growth and higher customer lifetime value (LTV).</p>
+
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.45s;">
+                            <div onclick="triggerHaptic(); showWorkView();" class="genie-target glow-border p-8 rounded-2xl relative group h-full w-full cursor-pointer hover:border-cyan-400/40 transition-colors">
+                                <div class="flex items-center gap-4 mb-6 relative z-10">
+                                    <img src="https://placehold.co/100x100/7c2d12/fb923c?text=CH" alt="Chakaachak" class="w-14 h-14 rounded-full object-cover border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                                    <div>
+                                        <h4 class="font-bold font-roobert text-white text-lg group-hover:text-cyan-400 transition-colors">Chakaachak</h4>
+                                        <p class="text-sm text-cyan-400 font-medium">Pittie Group</p>
+                                    </div>
+                                </div>
+                                <p class="text-neutral-300 relative z-10 text-lg leading-relaxed">Scaled their brand awareness by executing comprehensive influencer marketing campaigns. We partnered with top lifestyle influencers to drive massive, targeted reach for their products.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-fade-in w-full">
+                        <div class="w-full mt-12 text-center">
+                            <p class="font-roobert text-2xl md:text-3xl font-bold text-neutral-500 italic opacity-80 tracking-wide">& Many More...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROI Engine Section -->
+            <section id="roi-engine" class="content-section py-24 md:py-32 border-t border-white/5 relative">
+                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_100%)] pointer-events-none"></div>
+                 <div class="max-w-7xl mx-auto px-6 relative z-10">
+                     <div class="section-fade-in w-full">
+                         <div class="text-center max-w-3xl mx-auto mb-16 w-full">
+                            <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">The Alpha</h3>
+                            <h2 class="font-roobert text-4xl md:text-5xl font-bold text-white mb-6">How Digital Leverage <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Drives Revenue.</span></h2>
+                             <p class="max-w-3xl mx-auto text-neutral-400 text-lg">This isn't about vanity metrics. We build an organic growth engine designed to convert your industry influence into a highly predictable, scalable pipeline.</p>
+                        </div>
+                     </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- 1: Authority → Premium Pricing -->
+                        <div class="section-fade-in w-full h-full">
+                            <div class="genie-target glow-border p-8 rounded-2xl h-full w-full">
+                                <div class="roi-icon-wrap">
+                                    <span class="roi-step-number">Step 01</span>
+                                    <div class="roi-icon-inner">
+                                        <i class="ph-light ph-seal-check"></i>
+                                    </div>
+                                </div>
+                                <h4 class="font-roobert text-xl font-bold text-white mb-3">Authority &rarr; Premium Pricing</h4>
+                                <p class="text-neutral-400 text-sm leading-relaxed">When you're the perceived expert, price resistance vanishes. Command premium rates and instantly increase your Average Contract Value (ACV).</p>
+                            </div>
+                        </div>
+
+                        <!-- 2: Organic Reach → Slashed CAC -->
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.15s;">
+                            <div class="genie-target glow-border p-8 rounded-2xl h-full w-full">
+                                <div class="roi-icon-wrap">
+                                    <span class="roi-step-number">Step 02</span>
+                                    <div class="roi-icon-inner">
+                                        <i class="ph-light ph-chart-line-down"></i>
+                                    </div>
+                                </div>
+                                <h4 class="font-roobert text-xl font-bold text-white mb-3">Organic Reach &rarr; Slashed CAC</h4>
+                                <p class="text-neutral-400 text-sm leading-relaxed">Strategic content puts you in front of your ICP organically. We drastically reduce your reliance on paid acquisition, plummeting your Customer Acquisition Cost.</p>
+                            </div>
+                        </div>
+
+                        <!-- 3: Inbound Flow → Faster Sales -->
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.3s;">
+                            <div class="genie-target glow-border p-8 rounded-2xl h-full w-full">
+                                <div class="roi-icon-wrap">
+                                    <span class="roi-step-number">Step 03</span>
+                                    <div class="roi-icon-inner">
+                                        <i class="ph-light ph-funnel"></i>
+                                    </div>
+                                </div>
+                                <h4 class="font-roobert text-xl font-bold text-white mb-3">Inbound Flow &rarr; Faster Sales</h4>
+                                <p class="text-neutral-400 text-sm leading-relaxed">A strong brand pre-sells your prospects. High-intent inbound leads enter your pipeline already trusting you, aggressively compressing your sales cycles.</p>
+                            </div>
+                        </div>
+
+                        <!-- 4: Monetization → Predictable MRR -->
+                        <div class="section-fade-in w-full h-full" style="transition-delay: 0.45s;">
+                            <div class="genie-target glow-border p-8 rounded-2xl h-full w-full">
+                                <div class="roi-icon-wrap">
+                                    <span class="roi-step-number">Step 04</span>
+                                    <div class="roi-icon-inner">
+                                        <i class="ph-light ph-currency-circle-dollar"></i>
+                                    </div>
+                                </div>
+                                <h4 class="font-roobert text-xl font-bold text-white mb-3">Monetization &rarr; Predictable MRR</h4>
+                                <p class="text-neutral-400 text-sm leading-relaxed">The end game is a compounding asset. Build a sustainable top-of-funnel engine that drives long-term revenue and maximizes Customer Lifetime Value (LTV).</p>
+                            </div>
                         </div>
                     </div>
                  </div>
             </section>
-            
-            <!-- CTA Section -->
-            <section id="contact" class="content-section py-24 md:py-32">
-                <div class="container mx-auto px-6 text-center section-fade-in">
-                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter">Ready For Your <span class="accent-blue">Liftoff?</span></h2>
-                    <p class="mt-6 max-w-xl mx-auto text-lg text-gray-300">Stop being the best-kept secret in your industry. Let's schedule a 15-minute call to map out your revenue strategy. No fluff, no hard sell, just a clear flight plan.</p>
-                    <div class="mt-10">
-                        <form id="contact-form" class="max-w-xl mx-auto space-y-4">
+
+            <!-- CTA / Contact Section -->
+            <section id="contact" class="content-section py-24 md:py-32 border-t border-white/5 relative overflow-hidden">
+                <div class="absolute inset-0 bg-blue-600/5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                <div class="max-w-4xl mx-auto px-6 relative z-10">
+                    <div class="section-fade-in w-full">
+                        <div class="text-center mb-12 w-full">
+                            <h2 class="font-roobert text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Scale?</span></h2>
+                            <p class="text-xl text-neutral-400 max-w-2xl mx-auto">Stop leaving market share to your competitors. Let's schedule a high-signal, zero-fluff discovery call to map out your inbound growth strategy.</p>
+                        </div>
+                    </div>
+
+                    <div class="section-fade-in w-full">
+                        <form id="contact-form" class="genie-target glow-border rounded-3xl p-8 md:p-12 shadow-2xl w-full">
                             <input type="hidden" name="access_key" value="8381505d-b9b6-4116-8fcc-51ccc9bf6c34">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" name="name" placeholder="Your Name" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                                <input type="email" name="email" placeholder="Your Email" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-white mb-2 font-roobert">Your Name</label>
+                                    <input type="text" name="name" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all shadow-inner">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-white mb-2 font-roobert">Your Email</label>
+                                    <input type="email" name="email" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all shadow-inner">
+                                </div>
                             </div>
-                            <div>
-                                <select name="service_interest" required class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                                    <option value="" disabled selected>Select a service you're interested in</option>
-                                    <option value="Startups & Brands">For Startups & Brands</option>
-                                    <option value="Founders & Leaders">For Founders & Leaders</option>
-                                    <option value="AI Companies">For AI Companies</option>
-                                    <option value="LinkedIn Management">LinkedIn Management</option>
-                                    <option value="General Inquiry">General Inquiry</option>
-                                </select>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-white mb-2 font-roobert">Service of Interest</label>
+                                <div class="relative">
+                                    <select name="service_interest" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all appearance-none cursor-pointer shadow-inner">
+                                        <option value="" disabled selected class="bg-[#050505]">Select an option...</option>
+                                        <option value="Viral Shorts Rearrangements" class="bg-[#050505]">Viral Shorts for Creators</option>
+                                        <option value="LinkedIn Management" class="bg-[#050505]">LinkedIn for Founders & CXOs</option>
+                                        <option value="Digital PR & ORM" class="bg-[#050505]">Digital PR & ORM for Brands</option>
+                                        <option value="Influencer Marketing" class="bg-[#050505]">Influencer Marketing for Brands</option>
+                                        <option value="General Inquiry" class="bg-[#050505]">General Inquiry</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-400">
+                                        <i class="ph-bold ph-caret-down text-xl"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <textarea name="message" placeholder="Your Message" rows="4" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
+
+                            <div class="mb-8">
+                                <label class="block text-sm font-semibold text-white mb-2 font-roobert">Your Message</label>
+                                <textarea name="message" rows="4" class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all resize-none shadow-inner"></textarea>
                             </div>
-                            <div class="text-center">
-                                <button type="submit" class="w-full md:w-auto bg-accent-blue text-black font-semibold py-3 px-8 rounded-lg hover:bg-blue-500 transition-all duration-300 flex-shrink-0">
-                                   Book My Strategy Call
-                                </button>
-                            </div>
+
+                            <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-xl font-bold text-lg hover:from-blue-400 hover:to-cyan-400 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 font-roobert">
+                                Book a Discovery Call <i class="ph-light ph-rocket text-xl"></i>
+                            </button>
+                            <div id="form-result" class="mt-4 text-sm text-center font-medium"></div>
                         </form>
-                        <div id="form-result" class="mt-4 text-sm text-center"></div>
                     </div>
                 </div>
             </section>
             
             <!-- Footer -->
-            <footer class="content-section border-t border-gray-800">
-                <div class="container mx-auto px-6 py-12">
-                    <div class="flex flex-col md:flex-row justify-between items-center text-center">
-                        <p class="text-gray-400">&copy; 2024 Hyp! Media. All Rights Reserved.</p>
-                        <div class="flex items-center space-x-6 mt-4 md:mt-0">
-                             <a href="https://www.linkedin.com/in/hyp-media" target="_blank" class="text-gray-400 hover:text-accent-blue transition-colors">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.25 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
-                             </a>
-                             <a href="mailto:hello@hypmedia.co.in" class="text-gray-400 hover:text-accent-blue transition-colors">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
-                             </a>
-                             <a href="https://wa.me/919485509850" target="_blank" class="text-gray-400 hover:text-accent-blue transition-colors">
-                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.25 8.25 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42 1.56 1.56 2.42 3.62 2.42 5.82- .01 4.54-3.71 8.24-8.24 8.24zm4.52-6.13c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.06-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.88 2.4 1 2.56.12.17 1.75 2.67 4.24 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.05-.12-.19-.19-.43-.31z"></path></svg>
-                             </a>
+            <footer class="content-section border-t border-white/5 bg-[#050505]">
+                <div class="section-fade-in w-full">
+                    <div class="max-w-7xl mx-auto px-6 py-12 w-full">
+                        <div class="flex flex-col md:flex-row justify-between items-center text-center">
+                            <div class="flex items-center gap-2 font-bold text-xl tracking-tight text-white mb-4 md:mb-0">
+                                <span class="font-roobert">Hyp!<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"> Media</span></span>
+                            </div>
+                            <p class="text-neutral-500 text-sm">&copy; <span id="year"></span> Hyp! Media. All Rights Reserved.</p>
+                            <div class="flex items-center space-x-6 mt-6 md:mt-0">
+                                 <a href="https://www.linkedin.com/in/hyp-media" target="_blank" class="text-neutral-500 hover:text-cyan-400 transition-colors">
+                                    <i class="ph-light ph-linkedin-logo text-2xl"></i>
+                                 </a>
+                                 <a href="mailto:hello@hypmedia.co.in" class="text-neutral-500 hover:text-cyan-400 transition-colors">
+                                    <i class="ph-light ph-envelope-simple text-2xl"></i>
+                                 </a>
+                                 <a href="https://wa.me/919485509850" target="_blank" class="text-neutral-500 hover:text-cyan-400 transition-colors">
+                                     <i class="ph-light ph-phone text-2xl"></i>
+                                 </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -256,170 +610,520 @@
         </div>
     </div>
 
-    <!-- Modals -->
-    <div id="brandModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
-        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
-            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
-            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
-                <h2 class="text-4xl font-bold mb-2">Startup & Brand Blueprint</h2>
-                <p class="text-lg text-blue-400 mb-8">Architecting your brand's authority and market dominance.</p>
-                
-                <div>
-                    <h3 class="text-2xl font-bold mb-4">What We Do:</h3>
-                    <p class="text-gray-300 mb-6">We build and execute a comprehensive Digital PR strategy that inserts your brand into the conversations that matter. We don't just get you seen; we get you recognized as an industry leader by securing high-authority media placements, podcast features, and niche community spotlights.</p>
-                </div>
-                
-                <div class="glow-border p-6 rounded-xl bg-gray-900/50">
-                    <h3 class="text-2xl font-bold mb-4 accent-blue">How It Translates to Profit:</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-white">Short-Term ROI (The First 90 Days)</h4>
-                            <ul class="list-disc list-inside text-gray-400 mt-2">
-                                <li>Increased Lead Velocity for launches.</li>
-                                <li>Accelerated Investor Interest.</li>
-                                <li>Higher Website Traffic & Conversions.</li>
-                            </ul>
+    <!-- ==========================================
+         WORK VIEW (Case Studies)
+         ========================================== -->
+    <div id="work-view" class="hidden relative z-50 bg-transparent min-h-screen text-white transition-opacity duration-300">
+        
+        <header class="fixed top-0 left-0 right-0 z-[70] transition-all duration-300 bg-black/40 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+                <button onclick="triggerHaptic(); showHomeView()" class="group flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
+                    <i class="ph-bold ph-arrow-left text-xl group-hover:-translate-x-1 transition-transform duration-300"></i>
+                    <span class="font-bold text-lg font-roobert">Back to Home</span>
+                </button>
+                <a href="#" onclick="showHomeView(); setTimeout(() => document.getElementById('contact').scrollIntoView(), 100);" class="hidden md:inline-flex bg-gradient-to-r from-blue-500 to-cyan-500 text-black font-bold py-2.5 px-6 rounded-full hover:from-blue-400 hover:to-cyan-400 transition-all items-center gap-2 font-roobert">
+                    Start Project <i class="ph-light ph-rocket text-base"></i>
+                </a>
+            </div>
+        </header>
+
+        <section class="hero-section pt-40 pb-20 relative overflow-hidden content-section">
+            <div class="absolute inset-0 bg-blue-600/5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-6 text-center w-full relative z-10">
+                <h1 class="font-roobert text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 section-fade-in">
+                    We Don't Just Talk. <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">We Execute.</span>
+                </h1>
+                <p class="max-w-2xl mx-auto text-neutral-400 text-lg md:text-xl section-fade-in leading-relaxed">
+                    From scaling startup unicorns to launching national television campaigns, we've engineered digital leverage for the most disruptive players in the market.
+                </p>
+            </div>
+        </section>
+
+        <div id="work-content-wrapper" class="bg-transparent">
+            <!-- Work items can be filled with standard Case Study grids -->
+            <section class="content-section py-20 border-b border-white/5">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="w-full h-full">
+                            <div class="section-fade-in h-full w-full">
+                                 <div class="glow-border rounded-2xl overflow-hidden relative h-[400px] md:h-[500px]">
+                                    <img src="https://placehold.co/400x500/1e3a8a/60a5fa?text=Work+Sample+1" alt="Sample Work 1" class="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-luminosity">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                                 </div>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-white">Long-Term ROI (The bigger picture)</h4>
-                            <ul class="list-disc list-inside text-gray-400 mt-2">
-                                <li>Increased Brand Equity (allowing premium pricing).</li>
-                                <li>Reduced Customer Acquisition Costs.</li>
-                                <li>Stronger Competitive Moat.</li>
-                            </ul>
+                        <div class="w-full h-full">
+                            <div class="section-fade-in h-full w-full">
+                                 <div class="glow-border rounded-2xl overflow-hidden relative h-[400px] md:h-[500px]">
+                                    <img src="https://placehold.co/400x500/831843/f472b6?text=Work+Sample+2" alt="Sample Work 2" class="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-luminosity">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-10 pt-8 border-t border-gray-800">
-                     <blockquote class="text-center italic text-gray-300 text-lg">
-                        <p>"Working with Hyp! Media was a game-changer. They secured features we never thought possible, which directly led to a successful funding round."</p>
-                        <cite class="block mt-4 not-italic font-bold text-accent-blue">- Founder of a Tech Startup</cite>
-                     </blockquote>
+            </section>
+            
+            <section class="content-section py-32 text-center bg-transparent">
+                <div class="max-w-4xl mx-auto px-6 w-full">
+                    <h2 class="font-roobert text-4xl md:text-5xl font-black mb-6 text-white uppercase tracking-tight">Seen Enough?</h2>
+                    <p class="text-neutral-400 text-xl mb-12 max-w-2xl mx-auto">These results aren't accidents. They are engineered. Let's engineer yours.</p>
+                    <button onclick="triggerHaptic(); showHomeView(); setTimeout(() => document.getElementById('contact').scrollIntoView(), 100);" class="magnetic-button inline-flex items-center justify-center gap-2 px-10 py-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-full font-bold text-xl hover:from-blue-400 hover:to-cyan-400 transition-all shadow-lg shadow-blue-500/20 font-roobert">
+                        Start Your Transformation <i class="ph-light ph-rocket text-2xl"></i>
+                    </button>
                 </div>
-            </div>
+            </section>
+
+            <footer class="content-section border-t border-white/5 bg-[#050505]">
+                <div class="max-w-7xl mx-auto px-6 py-12 text-center text-neutral-500 w-full">
+                    <p>&copy; <span id="year-work"></span> Hyp! Media. All Rights Reserved.</p>
+                </div>
+            </footer>
         </div>
     </div>
 
-    <div id="founderModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
-        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
-            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
-            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
-                <h2 class="text-4xl font-bold mb-2">Founder & Leader Blueprint</h2>
-                <p class="text-lg text-blue-400 mb-8">Transforming your personal expertise into a revenue-generating asset.</p>
+    <!-- ==========================================
+         SHORTS VIEW (Viral Shorts Playbook)
+         ========================================== -->
+    <div id="shorts-view" class="hidden relative z-50 bg-transparent min-h-screen text-white transition-opacity duration-300">
+        
+        <header class="fixed top-0 left-0 right-0 z-[70] transition-all duration-300 bg-black/40 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+                <button onclick="triggerHaptic(); showHomeView()" class="group flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
+                    <i class="ph-bold ph-arrow-left text-xl group-hover:-translate-x-1 transition-transform duration-300"></i>
+                    <span class="font-bold text-lg font-roobert">Back to Home</span>
+                </button>
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400 font-roobert">
+                    <a href="#shorts-work" class="hover:text-cyan-400 transition-colors">Our Work</a>
+                    <a href="#shorts-problem" class="hover:text-cyan-400 transition-colors">The Problem</a>
+                    <a href="#shorts-solution" class="hover:text-cyan-400 transition-colors">How It Works</a>
+                    <a href="#shorts-why-us" class="hover:text-cyan-400 transition-colors">Why Us</a>
+                </div>
+                <a href="#shorts-contact" class="hidden md:inline-flex bg-gradient-to-r from-blue-500 to-cyan-500 text-black font-bold py-2.5 px-6 rounded-full hover:from-blue-400 hover:to-cyan-400 transition-all items-center gap-2 font-roobert">
+                    Get Strategy <i class="ph-bold ph-arrow-right text-base"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden content-section">
+            <div class="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+                <canvas id="shorts-globe-canvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-50 md:opacity-20"></canvas>
+                <div class="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
                 
-                 <div>
-                    <h3 class="text-2xl font-bold mb-4">What We Do:</h3>
-                    <p class="text-gray-300 mb-6">We extract your unique insights and transform them into a powerful personal brand. Through exclusive podcast features, bylined articles in major publications, and a dominant social media presence, we make you the person everyone in your industry wants to know.</p>
+                <!-- Floating Media Icons -->
+                <div class="absolute top-[20%] left-[10%] md:left-[15%] opacity-20 animate-float">
+                    <i class="ph-fill ph-play-circle text-blue-500 text-[80px] md:text-[96px]"></i>
+                </div>
+                <div class="absolute top-[60%] left-[5%] md:left-[10%] opacity-10 animate-float-slow">
+                    <i class="ph-light ph-scissors text-cyan-400 text-[48px] md:text-[64px]"></i>
+                </div>
+                <div class="absolute top-[25%] right-[10%] md:right-[15%] opacity-20 animate-float-delayed">
+                    <div class="w-16 h-24 md:w-20 md:h-32 border-4 border-cyan-500 rounded-xl relative glow-border bg-transparent backdrop-blur-none">
+                        <div class="absolute top-1 bottom-1 left-1 right-1 border-2 border-dashed border-blue-400 rounded-lg"></div>
+                    </div>
+                </div>
+                <div class="absolute top-[70%] right-[15%] md:right-[20%] opacity-10 animate-float">
+                    <i class="ph-light ph-film-strip text-blue-400 text-[64px] md:text-[80px]"></i>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 text-center relative z-10 section-fade-in w-full">
+                <h1 class="text-5xl md:text-7xl font-roobert font-black uppercase tracking-tight text-white mb-8 max-w-4xl mx-auto leading-tight">
+                    Turn Your Content Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Viral Shorts</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-neutral-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Most creators are leaving millions of views on the table. We help YouTubers transform long-form content into high-performing short-form videos that drive massive channel growth.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#shorts-contact" class="magnetic-button w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-full font-bold text-lg hover:from-blue-400 hover:to-cyan-400 transition-all flex items-center justify-center gap-2 font-roobert">
+                        Get a Free Strategy <i class="ph-bold ph-arrow-right text-xl"></i>
+                    </a>
+                    <a href="#shorts-work" class="magnetic-button w-full sm:w-auto px-8 py-4 bg-white/5 text-white rounded-full font-semibold text-lg border border-white/10 hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-roobert">
+                        View Sample Work
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SAMPLE VIDEOS / WORK SECTION -->
+        <section id="shorts-work" class="content-section py-24 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="section-fade-in text-center mb-16 w-full">
+                    <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">Our Portfolio</h3>
+                    <h2 class="font-roobert text-4xl md:text-5xl font-bold mb-4 text-white">Sample Work</h2>
+                    <p class="text-xl text-neutral-400">High-retention Shorts engineered for the algorithm.</p>
                 </div>
                 
-                <div class="glow-border p-6 rounded-xl bg-gray-900/50">
-                    <h3 class="text-2xl font-bold mb-4 accent-blue">How It Translates to Profit:</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-bold text-white">Short-Term ROI (The First 90 Days)</h4>
-                            <ul class="list-disc list-inside text-gray-400 mt-2">
-                                <li>Pipeline of High-Ticket Consulting Gigs.</li>
-                                <li>Paid Speaking Opportunities.</li>
-                                <li>Inbound leads who want *you*.</li>
-                            </ul>
+                <div class="flex overflow-x-auto md:grid md:grid-cols-4 gap-6 pb-8 md:pb-0 snap-x snap-mandatory hide-scrollbar">
+                    <!-- Video Container Fallback for preview -->
+                    <div class="genie-target video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center glow-border rounded-2xl overflow-hidden group cursor-pointer shadow-lg bg-neutral-900 flex flex-col items-center justify-center text-neutral-600">
+                        <i class="ph-light ph-video-camera text-4xl mb-2"></i>
+                        <span class="text-sm">Video 1</span>
+                    </div>
+                    <div class="genie-target video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center glow-border rounded-2xl overflow-hidden group cursor-pointer shadow-lg bg-neutral-900 flex flex-col items-center justify-center text-neutral-600" style="transition-delay: 0.1s;">
+                        <i class="ph-light ph-video-camera text-4xl mb-2"></i>
+                        <span class="text-sm">Video 2</span>
+                    </div>
+                    <div class="genie-target video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center glow-border rounded-2xl overflow-hidden group cursor-pointer shadow-lg bg-neutral-900 flex flex-col items-center justify-center text-neutral-600" style="transition-delay: 0.2s;">
+                        <i class="ph-light ph-video-camera text-4xl mb-2"></i>
+                        <span class="text-sm">Video 3</span>
+                    </div>
+                    <div class="genie-target video-container relative aspect-[9/16] w-[75vw] sm:w-[50vw] md:w-auto flex-none snap-center glow-border rounded-2xl overflow-hidden group cursor-pointer shadow-lg bg-neutral-900 flex flex-col items-center justify-center text-neutral-600" style="transition-delay: 0.3s;">
+                        <i class="ph-light ph-video-camera text-4xl mb-2"></i>
+                        <span class="text-sm">Video 4</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEM SECTION -->
+        <section id="shorts-problem" class="content-section py-24 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="section-fade-in w-full">
+                        <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">The Bottleneck</h3>
+                        <h2 class="font-roobert text-4xl md:text-5xl font-bold mb-6 leading-tight text-white">
+                            Creators Ignore the <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Biggest Growth Lever</span>
+                        </h2>
+                        <p class="text-lg text-neutral-400 mb-8">
+                            You spend hours researching, scripting, and filming incredible long-form videos. But if you fail to leverage Shorts, you're missing out on the exact format the algorithm is heavily promoting right now.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="glow-border flex items-start gap-4 p-4 rounded-2xl shadow-sm">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i class="ph-fill ph-users text-2xl"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts bring millions of new viewers to your channel ecosystem.</p>
+                            </div>
+                            <div class="glow-border flex items-start gap-4 p-4 rounded-2xl shadow-sm">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i class="ph-fill ph-trend-up text-2xl"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts convert casual scrollers into loyal long-form subscribers.</p>
+                            </div>
+                            <div class="glow-border flex items-start gap-4 p-4 rounded-2xl shadow-sm">
+                                <div class="bg-blue-500/10 text-cyan-400 p-3 rounded-xl flex-shrink-0">
+                                    <i class="ph-fill ph-youtube-logo text-2xl"></i>
+                                </div>
+                                <p class="text-neutral-200 font-medium pt-1">Shorts revive and monetize old, forgotten long-form content.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-white">Long-Term ROI (The bigger picture)</h4>
-                            <ul class="list-disc list-inside text-gray-400 mt-2">
-                                <li>Access to an Elite Professional Network.</li>
-                                <li>Ability to Attract A-Player Talent.</li>
-                                <li>Advisory & Board Role Opportunities.</li>
-                            </ul>
+                    </div>
+                    <div class="section-fade-in w-full relative">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-600/10 to-blue-900/10 rounded-[3rem] transform rotate-3 scale-105 -z-10"></div>
+                        <div class="genie-target glow-border rounded-[2.5rem] p-8 md:p-10 text-white shadow-2xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full mix-blend-screen filter blur-[80px] pointer-events-none"></div>
+                            <h3 class="font-roobert text-2xl font-bold mb-8">The Cost of Inaction</h3>
+                            <div class="space-y-6">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm text-neutral-400">
+                                        <span>Views without Shorts</span>
+                                        <span>Stagnant</span>
+                                    </div>
+                                    <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                                        <div class="h-full bg-neutral-600 w-1/3 rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm font-medium text-cyan-400">
+                                        <span>Views with Optimized Shorts</span>
+                                        <span>Exponential</span>
+                                    </div>
+                                    <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-400 w-11/12 rounded-full relative">
+                                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-12 bg-white/[0.02] border border-white/5 rounded-2xl p-6 backdrop-blur-sm">
+                                <p class="text-neutral-300 italic">"I was stuck at 150k subs for a year. We started chopping my podcasts into Shorts, and hit 400k in 6 months."</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="mt-10 pt-8 border-t border-gray-800 text-center">
-                    <h3 class="text-2xl font-bold accent-blue">Focus is the new currency.</h3>
-                    <p class="text-gray-300 mt-2">Let us handle your visibility so you can focus on what you do best: building the future.</p>
+        <!-- SOLUTION SECTION -->
+        <section id="shorts-solution" class="content-section py-24 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="section-fade-in text-center max-w-3xl mx-auto mb-16 w-full">
+                    <h3 class="font-roobert text-sm font-semibold text-cyan-400 tracking-widest uppercase mb-3">The Framework</h3>
+                    <h2 class="font-roobert text-4xl md:text-5xl font-bold mb-6 text-white">We Turn Your Content Into <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Growth Machines</span></h2>
+                    <p class="text-xl text-neutral-400">You record the long video. We handle everything else. Here is our exact blueprint.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-5 gap-8 relative section-fade-in w-full">
+                    <!-- Connecting line for desktop -->
+                    <div class="hidden lg:block absolute top-12 left-10 right-10 h-[1px] bg-white/10 z-0"></div>
+                    
+                    <!-- Steps -->
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 glow-border rounded-full flex items-center justify-center text-3xl font-black text-white mb-6 group-hover:border-cyan-400/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 bg-[#050505]">
+                            01
+                        </div>
+                        <h3 class="font-roobert text-xl font-bold mb-3 text-white">Analyze Data</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We deep-dive into analytics to understand your audience, tone, and best topics.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 glow-border rounded-full flex items-center justify-center text-3xl font-black text-white mb-6 group-hover:border-cyan-400/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 bg-[#050505]">
+                            02
+                        </div>
+                        <h3 class="font-roobert text-xl font-bold mb-3 text-white">Extract Moments</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We extract the most engaging, high-retention 30-60 second clips from your long videos.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 glow-border rounded-full flex items-center justify-center text-3xl font-black text-white mb-6 group-hover:border-cyan-400/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 bg-[#050505]">
+                            03
+                        </div>
+                        <h3 class="font-roobert text-xl font-bold mb-3 text-white">Dynamic Edits</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">Dynamic captions, b-roll, sound design, and pacing tailored purely for algorithms.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 glow-border rounded-full flex items-center justify-center text-3xl font-black text-white mb-6 group-hover:border-cyan-400/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 bg-[#050505]">
+                            04
+                        </div>
+                        <h3 class="font-roobert text-xl font-bold mb-3 text-white">Hooks & Titles</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We craft curiosity-driven titles and visual hooks that stop the scroll in 3 seconds.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center text-center group">
+                        <div class="w-24 h-24 glow-border rounded-full flex items-center justify-center text-3xl font-black text-white mb-6 group-hover:border-cyan-400/50 group-hover:text-cyan-400 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 bg-[#050505]">
+                            05
+                        </div>
+                        <h3 class="font-roobert text-xl font-bold mb-3 text-white">Scale Engine</h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed">We build a reliable publishing engine so you post high-quality Shorts consistently.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY US SECTION -->
+        <section id="shorts-why-us" class="content-section py-24 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="section-fade-in text-center mb-16 w-full">
+                    <h2 class="font-roobert text-4xl font-bold mb-4 text-white">Why Hyp! Media?</h2>
+                    <p class="text-xl text-neutral-400">We don't just edit videos. We engineer algorithmic growth.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto section-fade-in w-full">
+                    <!-- Freelancer Card -->
+                    <div class="genie-target glow-border p-8 rounded-[2rem]">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-neutral-500">
+                                <i class="ph-bold ph-x text-2xl"></i>
+                            </div>
+                            <h3 class="font-roobert text-2xl font-bold text-white">A Regular Editor</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-neutral-400"><i class="ph-bold ph-x text-xl text-neutral-600 shrink-0 mt-0.5"></i> Needs you to find and provide the timestamps</li>
+                            <li class="flex items-start gap-3 text-neutral-400"><i class="ph-bold ph-x text-xl text-neutral-600 shrink-0 mt-0.5"></i> Adds basic templates and generic captions</li>
+                            <li class="flex items-start gap-3 text-neutral-400"><i class="ph-bold ph-x text-xl text-neutral-600 shrink-0 mt-0.5"></i> Just does exactly what they're told</li>
+                            <li class="flex items-start gap-3 text-neutral-400"><i class="ph-bold ph-x text-xl text-neutral-600 shrink-0 mt-0.5"></i> Doesn't understand pacing or retention metrics</li>
+                        </ul>
+                    </div>
+
+                    <!-- Agency Card -->
+                    <div class="genie-target glow-border p-8 rounded-[2rem] shadow-xl relative overflow-hidden border-cyan-500/30">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full mix-blend-screen filter blur-[80px] opacity-20"></div>
+                        <div class="flex items-center gap-4 mb-8 relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-black shadow-lg shadow-blue-600/30">
+                                <i class="ph-bold ph-check text-2xl"></i>
+                            </div>
+                            <h3 class="font-roobert text-2xl font-bold text-white">Hyp! Media</h3>
+                        </div>
+                        <ul class="space-y-4 relative z-10">
+                            <li class="flex items-start gap-3 text-neutral-300"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0 mt-0.5"></i> We hunt your long videos for viral moments</li>
+                            <li class="flex items-start gap-3 text-neutral-300"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0 mt-0.5"></i> Advanced editing designed purely for loopability</li>
+                            <li class="flex items-start gap-3 text-neutral-300"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0 mt-0.5"></i> Writes compelling titles and visual hooks</li>
+                            <li class="flex items-start gap-3 text-neutral-300"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0 mt-0.5"></i> Data-driven strategy based on the YouTube algorithm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="shorts-contact" class="content-section py-24 border-t border-white/5 relative overflow-hidden">
+            <div class="absolute inset-0 bg-blue-600/5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+            <div class="max-w-4xl mx-auto px-6 relative z-10">
+                <div class="section-fade-in w-full text-center mb-12">
+                    <h2 class="font-roobert text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">Unlock Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Growth</span></h2>
+                    <p class="text-xl text-neutral-400 max-w-2xl mx-auto">Drop your details below and we'll map out a custom Shorts strategy to scale your channel.</p>
+                </div>
+
+                <div class="section-fade-in w-full">
+                    <!-- Success Message -->
+                    <div id="shorts-success-message" class="hidden glow-border rounded-2xl p-12 text-center transform transition-all mb-8">
+                        <div class="w-16 h-16 bg-blue-500/20 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="ph-fill ph-check-circle text-3xl"></i>
+                        </div>
+                        <h3 class="font-roobert text-2xl font-bold text-white mb-2">Request Received!</h3>
+                        <p class="text-neutral-400">We're analyzing your channel and will be in touch shortly.</p>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form id="shorts-contact-form" class="genie-target glow-border rounded-3xl p-8 md:p-12 shadow-2xl w-full">
+                        <input type="hidden" name="access_key" value="8854b6e7-f2f1-43bd-940d-1e1dae376a83">
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-white mb-2 font-roobert">Your Name</label>
+                                <input type="text" name="name" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all shadow-inner" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-white mb-2 font-roobert">Your Email</label>
+                                <input type="email" name="email" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all shadow-inner" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-white mb-2 font-roobert">YouTube Channel Link</label>
+                            <input type="url" name="channel_link" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all shadow-inner" placeholder="https://youtube.com/@yourchannel">
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-white mb-2 font-roobert">Where did you discover us?</label>
+                            <div class="relative">
+                                <select name="discovery_source" required class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all appearance-none cursor-pointer shadow-inner">
+                                    <option value="" disabled selected class="bg-[#050505]">Select an option...</option>
+                                    <option value="LinkedIn" class="bg-[#050505]">LinkedIn</option>
+                                    <option value="Instagram" class="bg-[#050505]">Instagram</option>
+                                    <option value="Email" class="bg-[#050505]">Email</option>
+                                    <option value="Other" class="bg-[#050505]">Other</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-400">
+                                    <i class="ph-bold ph-caret-down text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="block text-sm font-semibold text-white mb-2 font-roobert">Tell us about your goals (Optional)</label>
+                            <textarea name="goals" rows="4" class="w-full bg-white/[0.03] border border-white/10 backdrop-blur-md rounded-xl px-4 py-4 text-white placeholder-neutral-500 focus:outline-none focus:bg-white/[0.06] focus:border-cyan-500 transition-all resize-none shadow-inner" placeholder="I want to reach 1M subscribers by..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black rounded-xl font-bold text-lg hover:from-blue-400 hover:to-cyan-400 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 font-roobert magnetic-button">
+                            Get Strategy <i class="ph-light ph-rocket text-xl"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="content-section border-t border-white/5 bg-[#050505]">
+            <div class="max-w-7xl mx-auto px-6 py-12 text-center text-neutral-500 w-full">
+                <p>&copy; <span id="year-shorts"></span> Hyp! Media. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+    <div id="linkedinModal" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-2xl flex items-center justify-center p-6 z-50">
+        <div class="modal-content bg-neutral-950/80 border border-white/10 max-w-4xl w-full rounded-2xl relative shadow-2xl shadow-blue-900/20">
+            <button class="modal-close absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors bg-white/5 rounded-full p-2"><i class="ph-bold ph-x text-xl"></i></button>
+            <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
+                <h2 class="font-roobert text-4xl font-bold mb-2 text-white">LinkedIn Management</h2>
+                <p class="text-lg text-cyan-400 mb-10">Why your silence on LinkedIn is costing you enterprise deals.</p>
+                <div class="space-y-6">
+                    <div class="glow-border p-8 rounded-xl flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
+                        <span class="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 shrink-0">80%</span>
+                        <div>
+                            <h4 class="font-roobert text-2xl font-bold text-white mb-2">of B2B Leads are Sourced on LinkedIn</h4>
+                            <p class="text-neutral-400 leading-relaxed">By being inactive, you're invisible to the vast majority of your target market. Your next high-ticket contract is scrolling right past you.</p>
+                        </div>
+                     </div>
+                     <div class="glow-border p-8 rounded-xl flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
+                        <span class="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 shrink-0">92%</span>
+                        <div>
+                            <h4 class="font-roobert text-2xl font-bold text-white mb-2">Engage with Industry Thought Leaders</h4>
+                            <p class="text-neutral-400 leading-relaxed">Trust isn't a feature; it's the entire product. An active, authoritative presence makes you the default choice before a sales call even happens.</p>
+                        </div>
+                     </div>
+                     <div class="glow-border p-8 rounded-xl flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
+                        <span class="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 shrink-0">61M</span>
+                        <div>
+                            <h4 class="font-roobert text-2xl font-bold text-white mb-2">Senior-Level Decision Makers are Active</h4>
+                            <p class="text-neutral-400 leading-relaxed">The investors, the enterprise clients, the top talent—they are all on LinkedIn. If your voice isn't dominating the feed, you don't exist.</p>
+                        </div>
+                     </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <div id="aiModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
-        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
-            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
+    <div id="prModal" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-2xl flex items-center justify-center p-6 z-50">
+        <div class="modal-content bg-neutral-950/80 border border-white/10 max-w-4xl w-full rounded-2xl relative shadow-2xl shadow-blue-900/20">
+            <button class="modal-close absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors bg-white/5 rounded-full p-2"><i class="ph-bold ph-x text-xl"></i></button>
             <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
-                <h2 class="text-4xl font-bold mb-2">AI Company Blueprint</h2>
-                <p class="text-lg text-blue-400 mb-8">Gain visibility and credibility in the most competitive tech landscape.</p>
-                
-                 <div class="glow-border p-6 rounded-xl bg-gray-900/50 mb-8">
-                    <h4 class="text-xl font-bold mb-4 text-center accent-blue">Why Target AI Audiences Now?</h4>
-                     <p class="text-gray-300 text-center">The AI space is moving at light speed. The golden window to establish authority is *now*. We connect you with the most filtered, high-intent audience online: early adopters, tech founders, and VCs actively looking for the next big thing. This isn't just marketing; it's a strategic land grab for market leadership.</p>
+                <h2 class="font-roobert text-4xl font-bold mb-2 text-white">Digital PR & ORM Playbook</h2>
+                <p class="text-lg text-cyan-400 mb-8">Controlling the narrative for your next funding round.</p>
+                <div>
+                    <h3 class="font-roobert text-2xl font-bold mb-4 text-white">What We Do:</h3>
+                    <p class="text-neutral-400 leading-relaxed mb-8">We combine strategic media placements with aggressive Online Reputation Management (ORM) to ensure when investors or clients search for your startup, they see unshakeable authority. We secure tier-1 articles, manage reviews, and push down negative search results to build a pristine digital moat.</p>
                 </div>
-
-                <h3 class="text-2xl font-bold mt-6 mb-3 text-center">AI Growth Packages</h3>
-                <div class="grid md:grid-cols-3 gap-6 mt-6">
-                    <div class="glow-border p-6 rounded-xl text-center">
-                         <h4 class="text-xl font-bold mb-2">Starter</h4>
-                         <p class="text-3xl font-bold accent-blue">2.5M+</p>
-                         <p class="text-gray-400">Follower Reach</p>
-                         <p class="mt-4 text-sm text-gray-300">Targeted features on 5 high-engagement AI pages to establish presence and spark interest.</p>
+                <div class="glow-border p-8 rounded-xl">
+                    <h3 class="font-roobert text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">How It Translates to Profit:</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-roobert font-bold text-white mb-4 flex items-center gap-2"><i class="ph-light ph-clock text-2xl text-cyan-400"></i> Short-Term ROI</h4>
+                            <ul class="space-y-3 text-neutral-400">
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0"></i> Immediate Credibility Boost.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0"></i> Suppress Negative Search Results.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0"></i> Drive down CAC through organic trust.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-roobert font-bold text-white mb-4 flex items-center gap-2"><i class="ph-light ph-trend-up text-2xl text-blue-500"></i> Long-Term ROI</h4>
+                            <ul class="space-y-3 text-neutral-400">
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-blue-500 shrink-0"></i> Seamless Investor Due Diligence.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-blue-500 shrink-0"></i> Protect against market volatility.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-blue-500 shrink-0"></i> Inbound Press & Partnership Opportunities.</li>
+                            </ul>
+                        </div>
                     </div>
-                     <div class="glow-border p-6 rounded-xl text-center border-accent-blue shadow-lg shadow-blue-500/20">
-                         <h4 class="text-xl font-bold mb-2">Standard</h4>
-                         <p class="text-3xl font-bold accent-blue">5.2M+</p>
-                         <p class="text-gray-400">Follower Reach</p>
-                         <p class="mt-4 text-sm text-gray-300">Strategic placements across 6 leading AI communities to engage a professional audience.</p>
-                    </div>
-                     <div class="glow-border p-6 rounded-xl text-center">
-                         <h4 class="text-xl font-bold mb-2">Elite</h4>
-                         <p class="text-3xl font-bold accent-blue">8M+</p>
-                         <p class="text-gray-400">Follower Reach</p>
-                         <p class="mt-4 text-sm text-gray-300">Premium exposure on 11 top-tier AI platforms to command attention and authority.</p>
-                    </div>
-                </div>
-
-                <div class="mt-10 pt-8 border-t border-gray-800">
-                     <h3 class="text-2xl font-bold text-center mb-4">Proven Track Record &rarr; Your Future Profit</h3>
-                     <div class="grid sm:grid-cols-2 gap-4 text-center">
-                         <p><strong class="accent-blue">500,000+ views</strong> for GammaAI translated to massive user acquisition.</p>
-                         <p><strong class="accent-blue">3,000+ sign-ups</strong> in 24 hours for a new AI tool, fast-tracking their growth.</p>
-                         <p><strong class="accent-blue">Thousands of new customers</strong> for an AI video editor after our campaign.</p>
-                         <p><strong class="accent-blue">1.5M+ views</strong> for emerging AI tools, creating market momentum.</p>
-                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="linkedinModal" class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 z-50">
-        <div class="modal-content glow-border bg-black max-w-4xl w-full rounded-2xl relative">
-            <button class="modal-close absolute top-6 right-6 text-gray-500 hover:text-white text-3xl">&times;</button>
+    <div id="influencerModal" class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-2xl flex items-center justify-center p-6 z-50">
+        <div class="modal-content bg-neutral-950/80 border border-white/10 max-w-4xl w-full rounded-2xl relative shadow-2xl shadow-blue-900/20">
+            <button class="modal-close absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors bg-white/5 rounded-full p-2"><i class="ph-bold ph-x text-xl"></i></button>
             <div class="modal-body p-8 md:p-12 max-h-[80vh] overflow-y-auto">
-                <h2 class="text-4xl font-bold mb-2">The LinkedIn Data</h2>
-                <p class="text-lg text-blue-400 mb-8">Why your silence is costing you more than you think.</p>
-                
-                <div class="space-y-8">
-                    <div class="glow-border p-8 rounded-xl bg-gray-900/50">
-                        <span class="text-6xl font-black accent-blue">80%</span>
-                        <h4 class="mt-2 text-2xl font-bold text-white mb-2">of B2B Leads are Sourced on LinkedIn</h4>
-                        <p class="text-slate-300 text-lg">By being inactive, you're invisible to the vast majority of your target market. Your next big contract is scrolling right past you.</p>
-                     </div>
-                     <div class="glow-border p-8 rounded-xl bg-gray-900/50">
-                        <span class="text-6xl font-black accent-blue">92%</span>
-                        <h4 class="mt-2 text-2xl font-bold text-white mb-2">of B2B Buyers Engage with Industry Thought Leaders</h4>
-                        <p class="text-slate-300 text-lg">Trust isn't a feature; it's the entire product. An active, authoritative presence makes you the default choice before a sales call is even booked.</p>
-                     </div>
-                     <div class="glow-border p-8 rounded-xl bg-gray-900/50">
-                        <span class="text-6xl font-black accent-blue">61M</span>
-                        <h4 class="mt-2 text-2xl font-bold text-white mb-2">Senior-Level Influencers are on LinkedIn</h4>
-                        <p class="text-slate-300 text-lg">The decision-makers, the investors, the enterprise clients—they are all on LinkedIn. If your voice isn't in the mix, you don't exist in their world.</p>
-                     </div>
+                <h2 class="font-roobert text-4xl font-bold mb-2 text-white">Influencer Marketing Playbook</h2>
+                <p class="text-lg text-cyan-400 mb-8">Leveraging borrowed trust to scale your brand authentically.</p>
+                <div class="glow-border p-8 rounded-xl mb-10">
+                    <h4 class="font-roobert text-xl font-bold mb-4 text-center text-white">Why Influencer Marketing?</h4>
+                     <p class="text-neutral-400 text-center leading-relaxed">Consumers no longer trust traditional ads; they trust people. By partnering with the right creators, you bypass ad fatigue and tap directly into highly engaged, targeted demographics. We handle the entire process—from sourcing to negotiation to ROI tracking.</p>
+                </div>
+                <div class="glow-border p-8 rounded-xl">
+                    <h3 class="font-roobert text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">The Campaign Engine:</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-roobert font-bold text-white mb-4 flex items-center gap-2"><i class="ph-light ph-target text-2xl text-cyan-400"></i> Sourcing & Strategy</h4>
+                            <ul class="space-y-3 text-neutral-400">
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0"></i> Data-driven creator vetting.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0"></i> Authentic integration concepts.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-cyan-400 shrink-0"></i> Targeted demographic alignment.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-roobert font-bold text-white mb-4 flex items-center gap-2"><i class="ph-light ph-chart-bar text-2xl text-blue-500"></i> Execution & Scaling</h4>
+                            <ul class="space-y-3 text-neutral-400">
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-blue-500 shrink-0"></i> Seamless contract negotiation.</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-blue-500 shrink-0"></i> Performance-based tracking (CPA/ROAS).</li>
+                                <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-xl text-blue-500 shrink-0"></i> Scaling winning creative assets.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <script src="script.js" defer></script>
+    <!-- Extracted JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
-
